@@ -1,0 +1,7 @@
+syn keyword pngFunctions png_create_write_struct png_create_info_struct png_destroy_write_struct png_init_io
+syn keyword pngFunctions png_write_end png_destroy_write_struct png_write_row png_set_IHDR png_write_info
+
+syn keyword pngConstants PNG_COLOR_TYPE_RGB PNG_INTERLACE_NONE PNG_COMPRESSION_TYPE_BASE PNG_FILTER_TYPE_BASE 
+syn keyword pngConstants PNG_LIBPNG_VER_STRING
+
+syn keyword pngVariables png_byte png_bytep png_bytepp png_infop png_structp png_infopp png_info png_const_charp
