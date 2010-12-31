@@ -1,5 +1,5 @@
 "
-" Last Change: 12-Dec-2010 16:54:45 .
+" Last Change: 31-Dec-2010 13:53:46 .
 "
 filetype plugin indent on
 set autoindent
@@ -99,7 +99,6 @@ set title titlestring=%<%f\ [%4l/%4L]\ %P
 set statusline=[%n]\ %<%f\ %((%1*%M%*%R%Y)%)\ %(\LINE\ [%4l/%4L]\ COL\ [%02c%03V]%)\ %P
 set wildchar=<TAB>
 "set backupext=.bak
-set printdevice="jupiter_a4"
 
 command! Q q
 command! W w
