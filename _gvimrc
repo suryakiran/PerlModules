@@ -1,5 +1,5 @@
 "
-" Last Change: 31-Dec-2010 13:53:46 .
+" Last Change: 10-Jan-2011 13:31:45 .
 "
 filetype plugin indent on
 set autoindent
@@ -17,8 +17,8 @@ set incsearch
 set smartindent
 set smarttab
 set foldmethod=marker
-set softtabstop=4
-set tabstop=4
+set softtabstop=2
+set tabstop=2
 set cpoptions=aABceFs
 set matchpairs=(:),{:},[:],<:>
 set noeol
@@ -29,7 +29,7 @@ set modeline
 set visualbell
 syntax enable
 syntax on
-colo neon
+colo darkrobot
 
 unmap <C-V>
 
@@ -89,7 +89,7 @@ set wildignore=*.o,*.obj,*.bak,*.exe
 set mousemodel=popup
 set columns=150
 set lines=80
-set shiftwidth=4
+set shiftwidth=2
 set textwidth=80
 set whichwrap=<,>,h,l,[,]
 set wrapmargin=2
@@ -98,6 +98,7 @@ set suffixes=.aux,.bak,.dvi,.gz,.idx,.log,.ps,.swp,.tar,.swo
 set title titlestring=%<%f\ [%4l/%4L]\ %P
 set statusline=[%n]\ %<%f\ %((%1*%M%*%R%Y)%)\ %(\LINE\ [%4l/%4L]\ COL\ [%02c%03V]%)\ %P
 set wildchar=<TAB>
+set fileformats=unix,dos
 "set backupext=.bak
 
 command! Q q
@@ -120,7 +121,7 @@ if has ("gui_gtk2")
 	"set backup
 elseif has ("gui_win32")
 	"set guifont=Bitstream_Vera_Sans_Mono:h8:cANSI
-	set guifont=Droid_Sans_Mono:h9:cANSI
+	set guifont=Droid_Sans_Mono:h8:cANSI
 	"set guifont=Olwen_Mono:h8:cANSI
 	"set guifont=Monaco:h8:cANSI
 	"set guifont=Anonymous:h8:cANSI
