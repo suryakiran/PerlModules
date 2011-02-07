@@ -1,5 +1,5 @@
 "
-" Last Change: 10-Jan-2011 13:31:45 .
+" Last Change: 07-Feb-2011 09:26:03 .
 "
 filetype plugin indent on
 set autoindent
@@ -29,7 +29,7 @@ set modeline
 set visualbell
 syntax enable
 syntax on
-colo darkrobot
+colo default
 
 unmap <C-V>
 
@@ -112,28 +112,14 @@ filetype indent on
 "autocmd BufReadPost,BufNew,BufNewFile,BufRead,BufEnter * call SetSyntaxForCppFiles()
 autocmd GUIEnter * call SetSyntaxForCppFiles()
 
-if has ("gui_gtk2")
-	set guifont=SUSE\ Sans\ Mono\ 8
-	"set guifont=Andale\ Mono\ 9
-	"set guifont=Bitstream\ Vera\ Sans\ Mono\ 8
-	"set guifont=Monospace\ 9
-	"set backupdir=~/.backups
-	"set backup
-elseif has ("gui_win32")
-	"set guifont=Bitstream_Vera_Sans_Mono:h8:cANSI
-	set guifont=Droid_Sans_Mono:h8:cANSI
-	"set guifont=Olwen_Mono:h8:cANSI
-	"set guifont=Monaco:h8:cANSI
-	"set guifont=Anonymous:h8:cANSI
-	"set guifont=HE_TERMINAL:h8:cANSI
-	"set guifont=TERM14:h8:cANSI
-	"set guifont=Lucida_Sans_Typewriter:h10:cANSI
-	"set backupdir="$HOME/vim_backups"
-	"set directory="$HOME/vim_swap"
-	set nobackup
+if has ('win32')
+	if filereadable (expand ("~/gvimrc-local"))
+		source ~/gvimrc-local
+	endif
 else
-	"set guifont=-schumacher-clean-bold-r-normal-*-*-140-*-*-c-*-iso8859-1
-	set guifont=-dec-terminal-medium-r-normal-*-*-140-*-*-c-*-iso8859-1
+	if filereadable (expand ("~/.gvimrc-local"))
+		source ~/.gvimrc-local
+	endif
 endif
 
 set noignorecase

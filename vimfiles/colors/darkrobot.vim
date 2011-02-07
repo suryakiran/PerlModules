@@ -98,5 +98,7 @@ hi boostMacros     gui=NONE guifg=#0adcfe
 hi boostTypeTraits gui=BOLD,ITALIC guifg=#0adcfe
 hi boostTypedef    gui=UNDERLINE guifg=#acbdfe
 
+hi cmakeSystemVariables gui=NONE guifg=#fedcda
+
 
 "vim: sw=4

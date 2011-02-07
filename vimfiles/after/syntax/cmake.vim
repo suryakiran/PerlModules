@@ -1,0 +1,6 @@
+syn keyword cmakeStatement
+	\ CHECK_INCLUDE_FILE CHECK_INCLUDE_FILE_CXX CHECK_TYPE_SIZE GET_PROPERTY QT4_WRAP_UI QT4_ADD_RESOURCES
+	\ SET_PROPERTY
+
+syn keyword cmakeSystemVariables
+	\ UNIX

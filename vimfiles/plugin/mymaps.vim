@@ -84,8 +84,10 @@ map <C-S-F4> :BufClose<CR>
 :nmap ,b :e $HOME/.bashrc <CR>
 if has ("unix")
 	:nmap ,v :e $HOME/.gvimrc <CR>
+	:nmap ,l :e $HOME/.gvimrc-local <CR>
 else
 	:nmap ,v :e $VIM/_gvimrc <CR>
+	:nmap ,l :e $HOME/gvimrc-local <CR>
 endif
 map <C-A> :cs add ${FLUENT_INC}/fluent_cscope_reference.out ${FLUENT_INC} <CR>
 map <C-R> :cs reset <CR>
