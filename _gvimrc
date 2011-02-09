@@ -1,5 +1,5 @@
 "
-" Last Change: 07-Feb-2011 09:26:03 .
+" Last Change: 09-Feb-2011 06:10:49 .
 "
 filetype plugin indent on
 set autoindent
@@ -31,7 +31,9 @@ syntax enable
 syntax on
 colo default
 
-unmap <C-V>
+if mapcheck("<C-V>")
+	unmap <C-V>
+endif
 
 set matchtime=500
 "set fo=aw2tq
