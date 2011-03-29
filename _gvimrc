@@ -1,5 +1,5 @@
 "
-" Last Change: 17-Feb-2011 14:05:58 .
+" Last Change: 11-Mar-2011 09:09:32 .
 "
 filetype plugin indent on
 set autoindent
@@ -27,6 +27,7 @@ set errorformat=%f:%1:%m,\"%f\"\\,\ line\ %1\:\ %m
 set cscopetagorder=1
 set modeline
 set visualbell
+set expandtab
 syntax enable
 syntax on
 colo default

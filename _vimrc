@@ -29,3 +29,11 @@ function MyDiff()
 endfunction
 
 set nobackup
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set expandtab
+set showmatch
+set showmode
+set nu
