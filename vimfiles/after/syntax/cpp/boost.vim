@@ -48,9 +48,9 @@ syn keyword boostMacros      BOOST_MULTI_INDEX_MEM_FUN
 
 syn keyword boostKeywords    required optional
 
-syn keyword boostTypes       value_type left_const_reference left_reference right_reference right_const_reference left_range_type auto_type type
-syn keyword boostTypes       allocator_type key_compare right_range_type left_iterator right_iterator left_const_iterator right_const_iterator
-syn keyword boostTypes       first_type second_type
+syn keyword boostTypes       value_type left_range_type auto_type type allocator_type key_compare right_range_type first_type second_type
+
+syn match boostTypes    "\(left_\|right_\)\(const_\)\?\(reference\|iterator\)"
 
 syn keyword boostPreProc     BOOST_PP_ENUM_PARAMS BOOST_PP_IF BOOST_PP_EXPR_IF BOOST_PP_ENUM_SHIFTED_PARAMS BOOST_PP_COMMA BOOST_PP_TUPLE_EAT
 syn keyword boostPreProc     BOOST_PP_EMPTY BOOST_PP_INC BOOST_PP_DEC
