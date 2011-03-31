@@ -19,30 +19,34 @@ syn match boostClasses "w\?[sc]\?\(regex\|match\)\s\+"he=e-1
 
 syn keyword boostSpirit      char_ int_ double_ lexeme space
 
-syn keyword boostFunctions   current_path initial_path file_string directory_string root_path day trim trim_left list_of as_long_string is_any_of
-syn keyword boostFunctions   root_name branch_path leaf is_complete has_root_path has_root_name has_leaf month trim_right is_equal split get as
+syn keyword boostFunctions   current_path initial_path file_string directory_string root_path day trim trim_left list_of as_long_string
+syn keyword boostFunctions   root_name branch_path leaf has_root_path has_root_name has_leaf month trim_right split get as
 syn keyword boostFunctions   normalize relative_path has_branch_path default_name_check_writable complete year first_finder reset notify set_close
-syn keyword boostFunctions   default_name_check portable_posix_name windows_name portable_name no_check native is_iequal find_all bind as_xpr
-syn keyword boostFunctions   portable_file_name portable_directory_name create_directories extension basename make_split_iterator is_empty ret
-syn keyword boostFunctions   system_complete change_extension exists symbolic_link_exists is_directory make_find_iterator iends_with is_graph
-syn keyword boostFunctions   last_write_time remove_all remove rename copy_file gmtime localtime day_of_week all ifind_all icontains istarts_with
-syn keyword boostFunctions   day_number end_of_month_day from_day_number is_leap_year week_number is_infinity set_delimiter set_open store_left
-syn keyword boostFunctions   day_of_week is_neg_infinity is_pos_infinity is_not_a_date julian_day week_numbner time_of_day is_cntrl
-syn keyword boostFunctions   to_simple_string to_iso_string to_iso_extened_string local_day universal_day is_digit match_not_null
-syn keyword boostFunctions   utc_to_local from_time_t root_directory has_root_directory has_relative_path starts_with match_any match_not_bow
+syn keyword boostFunctions   default_name_check portable_posix_name windows_name portable_name no_check native find_all bind as_xpr
+syn keyword boostFunctions   portable_file_name portable_directory_name create_directories extension basename make_split_iterator ret
+syn keyword boostFunctions   system_complete change_extension exists symbolic_link_exists make_find_iterator
+syn keyword boostFunctions   last_write_time remove_all remove rename copy_file gmtime localtime day_of_week all ifind_all
+syn keyword boostFunctions   day_number end_of_month_day from_day_number week_number set_delimiter set_open store_left
+syn keyword boostFunctions   day_of_week julian_day week_numbner time_of_day create_directory 
+syn keyword boostFunctions   local_day universal_day
+syn keyword boostFunctions   utc_to_local from_time_t root_directory has_root_directory has_relative_path
 syn keyword boostFunctions   if_then if_then_else if_then_else_return for_loop constant var ref cref find_first parse_command_line
-syn keyword boostFunctions   find_last regex_match regex_search match_default match_not_eob match_not_bob static_pointer_cast
-syn keyword boostFunctions   match_not_dot_newline match_not_dot_null create_directory 
-syn keyword boostFunctions   is_punct is_upper is_alnum is_classified is_space is_alpha 
-syn keyword boostFunctions   is_print make_tuple save load phrase_parse right equals parse push_back_a
-syn keyword boostFunctions   to_iso_extended_string is_xdigit ends_with add_options assign_a apply_visitor
-syn keyword boostFunctions   match_partial match_continuous match_extra match_single_line match_prev_avail iequals match_not_eol match_not_bol
-syn keyword boostFunctions   match_not_eow get_optional get_child write_xml put_child read_xml repeat make_zip_iterator at_key
-syn keyword boostFunctions   contains
+syn keyword boostFunctions   find_last regex_match regex_search static_pointer_cast make_tuple phrase_parse right equals parse push_back_a
+syn keyword boostFunctions   add_options assign_a apply_visitor save load
+syn keyword boostFunctions   get_optional get_child write_xml put_child read_xml repeat make_zip_iterator at_key
 
 syn match boostFunctions "i\?\(replace\|erase\)_\(first\|all\|all_regex\|regex\|last\|all_copy\)[\s(]\?"he=e-1
+syn match boostFunctions "i\?\(starts\|ends\)_with[\s(]\?"he=e-1
+syn match boostFunctions "i\?\(contains\|equals\|lexicographical_compare\)[\s(]\?"he=e-1
 syn match boostFunctions "to_\(upper\|lower\)\(_copy\)\?[\s(]\?"he=e-1
 syn match boostFunctions "format_\(default\|sed\|perl\|first_only\|all\|no_copy\)[\s(]\?"he=e-1
+syn match boostFunctions "is_\(punct\|upper\|alnum\|classified\|space\|alpha\|print\|\(neg_\|pos_\)\?infinity\)[\s(]\?"he=e-1
+syn match boostFunctions "is_\(empty\|complete\|any_of\|i\?equal\|graph\|directory\|leap_year\|not_a_date\)[\s(]\?"he=e-1
+syn match boostFunctions "is_\(cntrl\|xdigit\)[\s(]\?"he=e-1
+syn match boostFunctions "match_not_\(null\|[eb]o[wbl]\|dot_\(null\|newline\)\)[\s(]\?"he=e-1
+syn match boostFunctions "match_\(any\|default\|partial\|continuous\|extra\|single_line\|prev_avail\)[\s(]\?"he=e-1
+syn match boostFunctions "\(erase\|replace\)_\(all_\)\?\(regex_\)\?\(copy_\)\?[\s(]\?"he=e-1
+syn match boostFunctions "to_\(simple\|iso\(_extended\)\?\)_string[\s(]\?"he=e-1
 
 syn match boostIterators     "\(directory\|split\|find\|sregex\|range\(_result\)?\)_iterator"
 

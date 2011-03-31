@@ -26,7 +26,7 @@ syn match cppStlFunctions "\(pointer_to_\)\?\(unary\|binary\)_function[(\s]\+"he
 syn match cppStlFunctions "\(re\)\?size[(\s]\+"he=e-1
 syn match cppStlFunctions "\(upper\|lower\)_bound[(\s]\+"he=e-1
 syn match cppStlFunctions "\(not_\)\?equal_to[(\s]\+"he=e-1
-syn match cppStlFunctions "\(const_\)\?mem_fun[1]\?\(_ref\)\?_t[(\s]\+"he=e-1
+syn match cppStlFunctions "\(const_\)\?mem_fun1\?\(_ref\)\?_t[(\s]\+"he=e-1
 syn match cppStlFunctions "\(unary\|binary\)_negate[(\s]\+"he=e-1
 
 syn keyword cppStlFunctions reserve ptr_fun erase advance insert base what rfind mismatch for_each first second reverse transform
