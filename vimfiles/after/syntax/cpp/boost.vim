@@ -12,10 +12,10 @@ syn keyword boostClasses     mem_fn bad_lexical_cast xml_archive_exception alloc
 syn keyword boostClasses     heap_clone_allocator rule time_duration time_period anychar_p uint_p enable_if enable_if_c ptree optional
 syn keyword boostClasses     xml_writer_settings
 
-syn match boostClasses "\(text\|xml\)_[oi]archive"
-syn match boostClasses "\(shared\|scoped\|weak\|intrusive\)_ptr"
-syn match boostClasses "ptr_\(vector\|map\|set\)"
-syn match boostClasses "w\?[sc]\?\(regex\|match\)"
+syn match boostClasses "\(text\|xml\)_[oi]archive\s\+"he=e-1
+syn match boostClasses "\(shared\|scoped\|weak\|intrusive\)_ptr\s\+"he=e-1
+syn match boostClasses "ptr_\(vector\|map\|set\)\s\+"he=e-1
+syn match boostClasses "w\?[sc]\?\(regex\|match\)\s\+"he=e-1
 
 syn keyword boostSpirit      char_ int_ double_ lexeme space
 
@@ -40,9 +40,9 @@ syn keyword boostFunctions   match_partial match_continuous match_extra match_si
 syn keyword boostFunctions   match_not_eow get_optional get_child write_xml put_child read_xml repeat make_zip_iterator at_key
 syn keyword boostFunctions   contains
 
-syn match boostFunctions "i\?\(replace\|erase\)_\(first\|all\|all_regex\|regex\|last\|all_copy)"
-syn match boostFunctions "to_\(upper\|lower\)\(_copy\)\?"
-syn match boostFunctions "format_\(default\|sed\|perl\|first_only\|all\|no_copy\)"
+syn match boostFunctions "i\?\(replace\|erase\)_\(first\|all\|all_regex\|regex\|last\|all_copy\)[\s(]\?"he=e-1
+syn match boostFunctions "to_\(upper\|lower\)\(_copy\)\?[\s(]\?"he=e-1
+syn match boostFunctions "format_\(default\|sed\|perl\|first_only\|all\|no_copy\)[\s(]\?"he=e-1
 
 syn match boostIterators     "\(directory\|split\|find\|sregex\|range\(_result\)?\)_iterator"
 
