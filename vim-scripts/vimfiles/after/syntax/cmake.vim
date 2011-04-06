@@ -1,10 +1,9 @@
 syn keyword cmakeStatement
-	\ FLEX_TARGET FUNCTION ENDFUNCTION RETURN
-
-syn match cmakeStatement "CHECK_INCLUDE_FILE\(_CXX\|S\)\?[\s(]"he=e-1
-syn match cmakeStatement "QT4_\(ADD_RESOURCES\|WRAP_UI\)[\s(]"he=e-1
-syn match cmakeStatement "\(SET\|GET\)_PROPERTY[\s(]"he=e-1
-syn match cmakeStatement "CHECK_\(TYPE_SIZE\|\(SYMBOL\|LIBRARY\)_EXISTS\)[\s(]"he=e-1
+	\ FLEX_TARGET FUNCTION ENDFUNCTION RETURN 
+  \ QT4_ADD_RESOURCES QT4_WRAP_UI QT4_WRAP_CPP
+	\ CHECK_INCLUDE_FILE CHECK_INCLUDE_FILE_CXX CHECK_INCLUDE_FILES
+	\ SET_PROPERTY GET_PROPERTY
+	\ CHECK_TYPE_SIZE CHECK_SYMBOL_EXISTS CHECK_LIBRARY_EXISTS
 
 syn keyword cmakeOperators
 	\ DEPENDS
