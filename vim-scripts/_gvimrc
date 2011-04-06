@@ -1,5 +1,5 @@
 "
-" Last Change: 31-Mar-2011 18:06:51 .
+" Last Change: 06-Apr-2011 15:52:39 .
 "
 filetype plugin indent on
 set autoindent
@@ -57,17 +57,12 @@ autocmd BufRead *.py set expandtab smartindent cinwords=if,elif,else,for,while,t
 autocmd BufRead *.py set syntax=python
 autocmd BufRead *.ps1 set syntax=ps1
 autocmd BufRead,BufNewFile,BufNew *.ps1 set filetype=ps1
-autocmd BufNewFile,BufRead *.py source $VIM/vimfiles/after/python.vim
 autocmd BufNewFile,BufRead *.ps1 source $VIM/vimfiles/syntax/ps1.vim
 autocmd BufNewFile,BufRead *.svg set syntax=xml
 autocmd BufNewFile,BufRead SConstruct set syntax=python
 autocmd BufNewFile,BufRead SConstruct set filetype=python
-autocmd BufNewFile,BufRead SConstruct source $VIM/vimfiles/after/python.vim
-autocmd BufNewFile,BufRead SConstruct source $VIM/vimfiles/after/sconstruct.vim
 autocmd BufNewFile,BufRead SConscript set syntax=pmython
 autocmd BufNewFile,BufRead SConscript set filetype=python
-autocmd BufNewFile,BufRead SConscript source $VIM/vimfiles/after/python.vim
-autocmd BufNewFile,BufRead SConscript source $VIM/vimfiles/after/sconstruct.vim
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 "autocmd  BufNewFile *.{h,hpp} call <SID>insert_gates()
 autocmd BufWritePre,BufNewFile *.py set expandtab 

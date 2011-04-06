@@ -28,7 +28,7 @@ hi MoreMsg      gui=NONE guifg=#a800ff guibg=NONE
 hi Question     gui=NONE guifg=#008050 guibg=NONE
 
 " Split area
-hi StatusLine   gui=NONE guifg=#fffacd guibg=#DF6A6A
+hi StatusLine   gui=NONE guifg=#000000 guibg=#DF6A6A
 hi StatusLineNC gui=NONE guifg=#fffacd guibg=#b2bbcc
 hi VertSplit    gui=NONE guifg=#fffacd guibg=#b2bbcc
 hi WildMenu     gui=NONE guifg=#ffffff guibg=#3399cc
@@ -68,6 +68,9 @@ hi Statement    gui=NONE guifg=#0000FF guibg=NONE
 hi Todo         gui=NONE guifg=#ff0070 guibg=#ffe0f4
 hi Type         gui=NONE guifg=#eb7950 guibg=NONE
 hi Underlined   gui=UNDERLINE guifg=#0000ff guibg=NONE
+
+hi qt4Class gui=BOLD guifg=#ffaaaa
+hi qt4Funcs gui=NONE guifg=#600060
 
 " HTML
 hi htmlLink                 gui=UNDERLINE guifg=#0000ff guibg=NONE
