@@ -1,5 +1,5 @@
 "
-" Last Change: 06-Apr-2011 15:52:39 .
+" Last Change: 13-Apr-2011 12:10:33 .
 "
 filetype plugin indent on
 set autoindent
@@ -53,16 +53,10 @@ autocmd BufNewFile,BufRead *.d set syntax=cpp
 autocmd BufNewFile,BufRead *.ui set syntax=xml
 autocmd BufNewFile,BufRead *.cw set syntax=xml
 autocmd BufNewFile,BufRead *.ts set syntax=xml
-autocmd BufRead *.py set expandtab smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd BufRead *.py set syntax=python
 autocmd BufRead *.ps1 set syntax=ps1
 autocmd BufRead,BufNewFile,BufNew *.ps1 set filetype=ps1
 autocmd BufNewFile,BufRead *.ps1 source $VIM/vimfiles/syntax/ps1.vim
 autocmd BufNewFile,BufRead *.svg set syntax=xml
-autocmd BufNewFile,BufRead SConstruct set syntax=python
-autocmd BufNewFile,BufRead SConstruct set filetype=python
-autocmd BufNewFile,BufRead SConscript set syntax=pmython
-autocmd BufNewFile,BufRead SConscript set filetype=python
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 "autocmd  BufNewFile *.{h,hpp} call <SID>insert_gates()
 autocmd BufWritePre,BufNewFile *.py set expandtab 
@@ -73,6 +67,14 @@ autocmd BufNew,BufWritePre,BufNewFile,BufRead Makefile set tabstop=8
 autocmd BufNew,BufWritePre,BufNewFile,BufRead Makefile set softtabstop=4
 autocmd BufNew,BufWritePre,BufNewFile,BufRead Makefile set shiftwidth=4
 
+autocmd BufRead *.py set expandtab smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead *.py set syntax=python
+autocmd BufNewFile,BufRead SConstruct set syntax=python
+autocmd BufNewFile,BufRead SConstruct set filetype=python
+autocmd BufNewFile,BufRead SConscript set syntax=pmython
+autocmd BufNewFile,BufRead SConscript set filetype=python
+autocmd BufNew,BufWritePre,BufNewFile,BufRead PYTHON set shiftwidth=4
+autocmd BufNew,BufWritePre,BufNewFile,BufRead PYTHON set softtabstop=4
 
 im :<CR> :<CR>
 
