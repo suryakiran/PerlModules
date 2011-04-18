@@ -24,4 +24,7 @@ libstdcxx.register_libstdcxx_printers(None)
 from qt.v4 import qt
 qt.register_qt_printers(None)
 
+from gst import printers
+printers.register(None)
+
 end
