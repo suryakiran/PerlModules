@@ -1,0 +1,11 @@
+set as=highlight
+set winsplit=top_big
+
+hi StatusLine ctermbg=Red ctermfg=White
+hi LineHighlight ctermbg=Magenta ctermfg=White
+hi BreakPoint ctermbg=DarkRed ctermfg=White
+hi DisabledBreakpoint ctermfg=DarkBlue ctermbg=LightGray
+hi SelectedLineNr ctermfg=White ctermbg=DarkGreen
+hi Logo ctermfg=DarkMagenta
+hi Comment ctermfg=LightGray
+hi Constant cterm=NONE ctermfg=DarkRed
