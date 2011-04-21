@@ -1,5 +1,4 @@
 import os
-import sys
 import gdb
 import re
 
@@ -12,9 +11,19 @@ class ViCommand (gdb.Command):
   def invoke (self, arg, from_tty):
     line_info = gdb.execute('info line', False, True)
     match = self.regex.search(line_info)
+
+    if match is None:
+      raise gdb.GdbError ('No file to open')
+
     f = match.group(2)
     l = match.group(1)
-    cmd = 'gvim --servername GDB --remote-tab-silent +%s "%s"' % (l, f)
+
+    try:
+      server = gdb.parameter('vi-server')
+    except gdb.error:
+      server = 'gdb'
+
+    cmd = 'gvim --servername %s --remote-tab-silent +%s "%s"' % (server, l, f)
     os.system(cmd)
 
 ViCommand()

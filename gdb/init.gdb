@@ -8,6 +8,7 @@ gdb_dir = os.path.join(os.environ['HOME'], 'Gdb')
 python_dir = os.path.join(gdb_dir, 'python')
 printers_dir = os.path.join(gdb_dir, 'printers')
 commands_dir = os.path.join(gdb_dir, 'commands')
+parameters_dir = os.path.join(gdb_dir, 'parameters')
 
 gdb_files = glob.glob(os.path.join(gdb_dir, 'gdb/*.gdb'))
 for f in gdb_files:
@@ -30,5 +31,8 @@ printers.register(None)
 
 sys.path.insert (0, commands_dir)
 from commands import commands
+
+sys.path.insert (0, parameters_dir)
+from parameters import parameters
 
 end
