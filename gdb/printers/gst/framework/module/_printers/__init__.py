@@ -1,4 +1,5 @@
 __all__ = [
     'GSEditor',
-    'GSModule'
+    'GSModule',
+    'GSModuleDocumentView'
     ]

@@ -26,9 +26,6 @@ def register(obj):
   obj.pretty_printers.append(lookup_function)
 
 def populate_module_printers():
-  module_printers_dict['GSEditor'] = lambda val: GSEditor.GSEditor(val)
-  module_printers_dict['GSModule'] = lambda val: GSModule.GSModule(val)
-  module_printers_dict['GSModuleWidgetView'] = lambda val: GSModuleDocumentView.GSModuleDocumentView(val)
-  module_printers_dict['GSModuleDocumentView'] = lambda val: GSModuleDocumentView.GSModuleDocumentView(val)
+  module_printers_dict['GSCreatableCategory'] = lambda val: GSCreatableCategory.GSCreatableCategory(val)
 
 populate_module_printers()

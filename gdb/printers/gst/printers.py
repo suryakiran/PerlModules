@@ -1,4 +1,4 @@
-from gst.framework import printers
+from gst.framework import *
 import parameters
 
 def init_parameters():
