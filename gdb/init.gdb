@@ -7,6 +7,7 @@ import glob
 gdb_dir = os.path.join(os.environ['HOME'], 'Gdb')
 python_dir = os.path.join(gdb_dir, 'python')
 printers_dir = os.path.join(gdb_dir, 'printers')
+commands_dir = os.path.join(gdb_dir, 'commands')
 
 gdb_files = glob.glob(os.path.join(gdb_dir, 'gdb/*.gdb'))
 for f in gdb_files:
@@ -24,7 +25,10 @@ libstdcxx.register_libstdcxx_printers(None)
 from qt.v4 import qt
 qt.register_qt_printers(None)
 
-from gst import printers
+from gst import *
 printers.register(None)
+
+sys.path.insert (0, commands_dir)
+from commands import commands
 
 end
