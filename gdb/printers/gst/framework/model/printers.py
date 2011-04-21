@@ -1,31 +1,19 @@
 import gdb
 from _printers import *
+import utils.printer
 
-model_printers_dict = {}
-
-def lookup_function(val):
-  global model_printers_dict
-  type = val.type
-  if type.code == gdb.TYPE_CODE_REF:
-    type = type.target()
-  elif type.code == gdb.TYPE_CODE_PTR:
-    type = type.target()
-
-  type = type.unqualified ().strip_typedefs ()
-  typename = type.tag
-
-  if model_printers_dict.has_key(typename):
-    return model_printers_dict[typename](val)
-  else:
-    return None
+model_printer = None
 
 def register(obj):
   if obj is None:
     obj = gdb
 
-  obj.pretty_printers.append(lookup_function)
+  obj.pretty_printers.append(model_printer)
 
 def populate_model_printers():
-  model_printers_dict['GSDocument'] = lambda val: GSDocument.GSDocument(val)
+  global model_printer
+
+  model_printer = utils.printer.Printer('gst.framework.model')
+  model_printer.add('GSDocument', lambda val: GSDocument.GSDocument(val))
 
 populate_model_printers()

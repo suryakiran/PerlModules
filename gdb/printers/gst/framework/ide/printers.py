@@ -1,31 +1,21 @@
 import gdb
 from _printers import *
+import utils.printer
 
-module_printers_dict = {}
-
-def lookup_function(val):
-  global module_printers_dict
-  type = val.type
-  if type.code == gdb.TYPE_CODE_REF:
-    type = type.target()
-  elif type.code == gdb.TYPE_CODE_PTR:
-    type = type.target()
-
-  type = type.unqualified ().strip_typedefs ()
-  typename = type.tag
-
-  if module_printers_dict.has_key(typename):
-    return module_printers_dict[typename](val)
-  else:
-    return None
+ide_printer = None
 
 def register(obj):
   if obj is None:
     obj = gdb
 
-  obj.pretty_printers.append(lookup_function)
+  obj.pretty_printers.append(ide_printer)
 
-def populate_module_printers():
-  module_printers_dict['GSCreatableCategory'] = lambda val: GSCreatableCategory.GSCreatableCategory(val)
+def populate_ide_printers():
+  global ide_printer
 
-populate_module_printers()
+  ide_printer = utils.printer.Printer ('gst.framework.ide')
+
+  ide_printer.add('GSCreatableCategory', lambda val:
+      GSCreatableCategory.GSCreatableCategory(val))
+
+populate_ide_printers()
