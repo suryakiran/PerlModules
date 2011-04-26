@@ -30,12 +30,12 @@ syn keyword boostFunctions   day_number end_of_month_day from_day_number week_nu
 syn keyword boostFunctions   day_of_week julian_day week_numbner time_of_day create_directory 
 syn keyword boostFunctions   local_day universal_day
 syn keyword boostFunctions   utc_to_local from_time_t root_directory has_root_directory has_relative_path
-syn keyword boostFunctions   if_then if_then_else if_then_else_return for_loop constant var ref cref find_first parse_command_line
-syn keyword boostFunctions   find_last regex_match regex_search static_pointer_cast make_tuple phrase_parse right equals parse push_back_a
+syn keyword boostFunctions   if_then if_then_else if_then_else_return for_loop constant var ref cref parse_command_line
+syn keyword boostFunctions   regex_match regex_search static_pointer_cast make_tuple phrase_parse right equals parse push_back_a
 syn keyword boostFunctions   add_options assign_a apply_visitor save load
 syn keyword boostFunctions   get_optional get_child write_xml put_child read_xml repeat make_zip_iterator at_key
 
-syn match boostFunctions "i\?\(replace\|erase\)_\(first\|all\|all_regex\|regex\|last\|all_copy\)[\s(]\?"he=e-1
+syn match boostFunctions "\<i\?\(replace\|erase\)_\(first\|all\|all_regex\|regex\|last\|all_copy\)\>"
 syn match boostFunctions "i\?\(starts\|ends\)_with[\s(]\?"he=e-1
 syn match boostFunctions "i\?\(contains\|equals\|lexicographical_compare\)[\s(]\?"he=e-1
 syn match boostFunctions "to_\(upper\|lower\)\(_copy\)\?[\s(]\?"he=e-1
@@ -47,6 +47,7 @@ syn match boostFunctions "match_not_\(null\|[eb]o[wbl]\|dot_\(null\|newline\)\)[
 syn match boostFunctions "match_\(any\|default\|partial\|continuous\|extra\|single_line\|prev_avail\)[\s(]\?"he=e-1
 syn match boostFunctions "\(erase\|replace\)_\(all_\)\?\(regex_\)\?\(copy_\)\?[\s(]\?"he=e-1
 syn match boostFunctions "to_\(simple\|iso\(_extended\)\?\)_string[\s(]\?"he=e-1
+syn match boostFunctions "\<i\?find_\(nth\|last\|first\)\>"
 
 syn match boostIterators     "\(directory\|split\|find\|sregex\|range\(_result\)?\)_iterator"
 

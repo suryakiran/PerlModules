@@ -9,7 +9,7 @@ syn keyword cppStreams      streampos flush
 
 syn match cppStlFunctions "\(count\|replace\(_copy\)\?\|remove\(_copy\)\?\|copy\|find\)\(_if\)\?[(\s]\+"he=e-1
 syn match cppStlFunctions "[r]\?\(begin\|end\)[(\s]\+"he=e-1
-syn match cppStlFunctions "find_\(first\|last\)\(_not\)\?_of[(\s]\+"he=e-1
+syn match cppStlFunctions "find_\(first\|last\)\(_not\)\?_of[(\s]\?"he=e-1
 syn match cppStlFunctions "\(min\|max\)\(_element\)\?[(\s]\+"he=e-1
 syn match cppStlFunctions "not[12][(\s]\+"he=e-1
 syn match cppStlFunctions "\(fill\|search\|copy\)\(_n\)\?[(\s]\+"he=e-1
