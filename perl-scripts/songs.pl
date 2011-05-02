@@ -23,18 +23,20 @@ foreach (@singers) {
   $details->{$_}->{'site'} = $masterSite . $_ . '.asp';
 }
 
-foreach (@singers) {
-  $mech->get($details->{$_}->{'site'});
-  #my @links = $mech->find_all_links(url_regex => /details\.asp/);
-  #print @links . "\n";
+foreach my $singer (@singers) {
+  $mech->get($details->{$singer}->{'site'});
   my @links = $mech->find_all_links(url_regex => qr/album=/);
+
+  my $i = 0;
   foreach my $link (@links) {
-    push $details->{$_}->['childsites'], $masterSite . $link->url();
+    $details->{$singer}->{'childsites'}->[$i] = $masterSite . $link->url();
+    $i++;
   }
 }
 
 foreach my $singer (@singers) {
-  foreach ($details->{$singer}->['childsites']) {
+  my $childSites = $details->{$singer}->{'childsites'};
+  foreach (@$childSites) {
     print $_ . "\n";
   }
 }
