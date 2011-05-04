@@ -1,17 +1,23 @@
 #!/usr/bin/env perl
+
+use File::Basename;
+use File::Spec::Functions;
+
+BEGIN {
+  unshift @INC, catfile(dirname(__FILE__), 'PerlModules');
+}
+
 use warnings;
 use strict;
-use Win32::Registry;
-use Win32::TieRegistry;
-use Win32::Process;
-use Win32;
-use File::Spec;
-use File::Basename;
+
+use Env ;
+use English;
+use GVim;
 use Getopt::Long qw(:config no_ignore_case);
 
 my $files;
 my $vimOptions;
-my $server='default';
+my $server='gvim';
 my $lineNum=1;
 my $columnNum=1;
 my $readLocalSource;
@@ -19,7 +25,7 @@ my $editPerlFile;
 my $editVimrcFile;
 my $vcSolutionName;
 
-my %solutionServerMap =  (
+my %serverMap =  (
   'GeneroStudio' => 'gst',
 );
 
@@ -33,28 +39,16 @@ my $result = GetOptions (
 	'col|c=i' => \$columnNum,
   'perl|p' => \$editPerlFile,
   'vimrc|v' => \$editVimrcFile,
-  'vcproj=s' => \$vcSolutionName
 );
 
-my $reg = $Registry->Open ("LMachine/SOFTWARE/Vim/Gvim", {Access => KEY_READ(), Delimiter => '/'})
-	or die "Can't open HKEY_LOCAL_MACHINE key: $^E\n";
-
-my $gvim_exe = $reg->{'/path'};
-my $vim_dir = dirname(dirname($gvim_exe));
-my $gvimrc_file = File::Spec->catfile("$vim_dir", "_gvimrc");
-
-sub ErrorReport {
-	print Win32::FormatMessage (Win32::GetLastError());
-}
-
 my $vimargs;
-push (@$vimargs, 'gvim');
+push (@$vimargs, GVim->gvimExe());
 push (@$vimargs, '--servername');
 
-if ($vcSolutionName) {
-  $vcSolutionName =~ s/\.(sln|vcproj)$//;
-  if (exists($solutionServerMap{$vcSolutionName})) {
-    $server = $solutionServerMap{$vcSolutionName};
+if ($server) {
+  $server =~ s/\.(sln|vcproj)$//;
+  if (exists($serverMap{$server})) {
+    $server = $serverMap{$server};
   }
 }
 
@@ -65,27 +59,34 @@ if ($editPerlFile) {
   push (@$files, __FILE__);
 } elsif ($editVimrcFile) {
   @$files = ();
-  push (@$files, $gvimrc_file);
+  push (@$files, GVim->gvimrcFile());
 }
 
 if ($files) {
 	push (@$vimargs, '--remote-tab-silent');
 	push (@$vimargs, '+' . $lineNum);
 	foreach (@$files) {
-		push (@$vimargs, "\"$_\"");
+    if ($_ =~ /\s/) {
+      push (@$vimargs, "\"$_\"");
+    } else {
+      push (@$vimargs, "$_");
+    }
 	}
 } elsif (@ARGV) {
   push (@$vimargs, '--remote-tab-silent');
   foreach (@ARGV) {
-		push (@$vimargs, "\"$_\"");
+    if ($_ =~ /\s/) {
+      push (@$vimargs, "\"$_\"");
+    } else {
+      push (@$vimargs, "$_");
+    }
   }
+}
+
+if ($OSNAME =~ /linux/) {
+  push (@$vimargs, "2>" . File::Spec->devnull());
 }
 
 my $vimargs_string = join (' ', @$vimargs);
 
-my $processObj;
-
-Win32::Process::Create ($processObj, $reg->{'/path'}, $vimargs_string, 0,
-	NORMAL_PRIORITY_CLASS, ".") || die ErrorReport();
-
-$processObj->Resume();
+GVim->launch(@$vimargs);
