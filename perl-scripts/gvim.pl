@@ -3,6 +3,8 @@
 use File::Basename;
 use File::Spec::Functions;
 
+use constant IS_LINUX => ($^O =~ /linux/);
+
 BEGIN {
   unshift @INC, catfile(dirname(__FILE__), 'PerlModules');
 }
@@ -83,7 +85,7 @@ if ($files) {
   }
 }
 
-if ($OSNAME =~ /linux/) {
+if (IS_LINUX) {
   push (@$vimargs, "2>" . File::Spec->devnull());
 }
 
