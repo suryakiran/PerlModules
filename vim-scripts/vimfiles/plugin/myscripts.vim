@@ -177,9 +177,13 @@ nmap <silent> <C-n> :silent call ToggleHLSearch()<CR>
 
 if has ("unix")
    map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
+   map ,t :tabe <C-R>=expand("%:p:h") . "/" <CR>
+   map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
    map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
 else
    map ,e :e <C-R>=expand("%:p:h") . "\\" <CR>
+   map ,t :tabe <C-R>=expand("%:p:h") . "\\" <CR>
+   map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
    map ,w :w <C-R>=expand("%:p:h") . "\\" <CR>
 endif
 "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
