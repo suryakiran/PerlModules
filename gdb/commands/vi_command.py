@@ -2,16 +2,30 @@ import os
 import gdb
 import re
 
+class ViPrefixCommand (gdb.Command):
+  '''
+  Syntax: None.
+
+  This is a prefix command. 
+  '''
+  def __init__(self):
+    super(ViPrefixCommand, self).__init__(
+        'vi', 
+        gdb.COMMAND_SUPPORT,
+        gdb.COMPLETE_NONE,
+        True
+        )
+
 class ViCommand (gdb.Command):
   '''
   Syntax:
-    vi-file [arg]
+    vi file [arg]
 
-  with optional argument arg, vi-file opens file arg in gvim.
-  When no argument given, vi-file opens the currently opened file.
+  with optional argument arg, vi file opens file arg in gvim.
+  When no argument given, vi file opens the currently opened file.
   '''
   def __init__(self):
-    super(ViCommand, self).__init__('vi-file', gdb.COMMAND_SUPPORT)
+    super(ViCommand, self).__init__('vi file', gdb.COMMAND_SUPPORT)
     self.regex = re.compile ('Line (\d+) of "([^"]*)"')
 
   def invoke (self, arg, from_tty):
@@ -46,11 +60,11 @@ class ViAltCommand (gdb.Command):
   Opens the header/source file for C/C++ language for the corresponding
   source/header file opened by gdb.
 
-  vi-alt-file behavior will be same as vi-file if no alternative file found.
+  vi-alt-file behavior will be same as vi file if no alternative file found.
   '''
   def __init__(self):
     super(ViAltCommand, self).__init__(
-        'vi-alt-file', 
+        'vi alt-file', 
         gdb.COMMAND_SUPPORT
         )
     self.regex = re.compile ('Current source file is (.*)')
@@ -103,7 +117,8 @@ class ViAltCommand (gdb.Command):
     if file_found:
       file_to_open = alt_file
 
-    gdb.execute('vi-file %s' % (file_to_open))
+    gdb.execute('vi file %s' % (file_to_open))
 
+ViPrefixCommand()
 ViCommand()
 ViAltCommand()
