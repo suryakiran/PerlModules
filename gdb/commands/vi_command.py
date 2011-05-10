@@ -31,7 +31,7 @@ class ViCommand (gdb.Command):
   def invoke (self, arg, from_tty):
     f = ''
     l = 1
- 
+
     if arg == '':
       line_info = gdb.execute('info line', False, True)
       match = self.regex.search(line_info)
@@ -49,8 +49,17 @@ class ViCommand (gdb.Command):
     except gdb.error:
       server = 'gdb'
 
-    cmd = 'gvim --servername %s --remote-tab-silent +%s "%s"' % (server, l, f)
-    os.system(cmd)
+    cmd = ['gvim']
+    gviminit_file = os.path.join(os.getcwd(), 'gviminit.vim')
+
+    if os.path.exists(gviminit_file):
+      cmd.append('-S %s' % (gviminit_file))
+
+    cmd.append('--servername %s' % (server))
+    cmd.append('--remote-tab-silent +%s "%s"' % (l, f))
+    cmd.append('2>/dev/null')
+ 
+    os.system(' '.join(cmd))
 
 class ViAltCommand (gdb.Command):
   '''
