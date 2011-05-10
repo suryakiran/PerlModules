@@ -1,7 +1,6 @@
 import os
 import gdb
 import re
-import os
 
 class ViCommand (gdb.Command):
   '''
@@ -14,7 +13,6 @@ class ViCommand (gdb.Command):
   def __init__(self):
     super(ViCommand, self).__init__('vi-file', gdb.COMMAND_SUPPORT)
     self.regex = re.compile ('Line (\d+) of "([^"]*)"')
-    pass
 
   def invoke (self, arg, from_tty):
     f = ''
@@ -65,7 +63,6 @@ class ViAltCommand (gdb.Command):
         '.hpp': ['.cpp', 'C', '.cxx'],
         '.hxx': ['.cxx', '.cxx', 'C']
         }
-    pass
 
   def invoke (self, arg, from_tty):
     source_info = gdb.execute('info source', False, True)
