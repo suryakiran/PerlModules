@@ -35,7 +35,7 @@ my $opts;
 
 my $result = GetOptions (
 	'file|f=s@' => \$files,
-	'vimoptions|v=s@' => \$vimOptions,
+	'vimoptions|vo=s@' => \$vimOptions,
 	'server|s=s' => \$server,
 	'line|l=i' => \$lineNum,
 	'col|c=i' => \$columnNum,
@@ -45,6 +45,11 @@ my $result = GetOptions (
 
 my $vimargs;
 push (@$vimargs, GVim->gvimExe());
+
+foreach my $vo (@$vimOptions) {
+  push (@$vimargs, $vo)
+}
+
 push (@$vimargs, '--servername');
 
 if ($server) {

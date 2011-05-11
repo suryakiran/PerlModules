@@ -1,6 +1,6 @@
 " Vim color file
 "  Maintainer: Tiza
-" Last Change: 10-Sep-2010 14:56:31 .
+" Last Change: 10-May-2011 22:48:50 .
 "     version: 1.2
 " This color scheme uses a dark background.
 
@@ -12,7 +12,7 @@ endif
 
 let colors_name = "neon"
 
-hi Normal       guifg=#f0f0f0 guibg=#303030
+hi Normal       guifg=#ffffff guibg=#303030
 
 " Search
 hi IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
