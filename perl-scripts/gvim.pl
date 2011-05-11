@@ -37,7 +37,6 @@ my $opts;
 
 my $result = GetOptions (
 	'file|f=s@' => \$files,
-	'vimoptions|vo=s@' => \$vimOptions,
 	'server|s=s' => \$server,
 	'line|l=i' => \$lineNum,
 	'col|c=i' => \$columnNum,
@@ -49,10 +48,6 @@ my $vimargs;
 my $gvimExe = GVim->gvimExe();
 
 push (@$vimargs, $gvimExe);
-
-foreach my $vo (@$vimOptions) {
-  push (@$vimargs, $vo)
-}
 
 my @gvimServersRunning = GVim->serverList();
 
@@ -95,6 +90,7 @@ if ($files) {
 } elsif (@ARGV) {
   push (@$vimargs, '--remote-tab-silent');
   foreach (@ARGV) {
+    print $_ . "\n";
     if ($_ =~ /\s/) {
       push (@$vimargs, "\"$_\"");
     } else {
@@ -112,4 +108,5 @@ if (IS_LINUX) {
 
 my $vimargs_string = join (' ', @$vimargs);
 
+#print $vimargs_string . "\n";
 GVim->launch(@$vimargs);
