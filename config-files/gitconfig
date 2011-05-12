@@ -1,0 +1,49 @@
+[user]
+	name = Surya Kiran Gullapalli
+	email = SuryaKiran.Gullapalli@gmail.com
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	lod = log --oneline --decorate --graph
+	lst = ls-tree -r --full-tree --abbrev=10
+[core]
+	fileMode = false
+	autocrlf = input
+[color]
+	branch = always
+	diff = always
+	grep = always
+	showbranch = always
+	status = always
+	ui = always
+[color "branch"]
+	local = yellow
+	current = red white
+	remote = cyan
+[gui]
+	fontdiff = -family \"Droid Sans Mono\" -size 8 -weight normal -slant roman -underline 0 -overstrike 0
+	fontui = -family \"Droid Sans\" -size 8 -weight normal -slant roman -underline 0 -overstrike 0
+	recentrepo = /home/suki/gst
+[color "decorate"]
+	HEAD = blue bold
+	remoteBranch = red bold
+	branch = green bold dim
+[color "diff"]
+	commit = magenta dim
+[diff]
+	tool = kdiff3
+[merge]
+	tool = kdiff3
+[instaweb]
+  local = true
+  httpd = apache2
+  port = 4321
+  modulepath = /usr/lib/apache2/modules
+[color "status"]
+	untracked = cyan
+	added = green
+	changed = red
+	updated = yellow
+	header = red white
