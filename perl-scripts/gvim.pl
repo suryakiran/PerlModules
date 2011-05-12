@@ -90,7 +90,6 @@ if ($files) {
 } elsif (@ARGV) {
   push (@$vimargs, '--remote-tab-silent');
   foreach (@ARGV) {
-    print $_ . "\n";
     if ($_ =~ /\s/) {
       push (@$vimargs, "\"$_\"");
     } else {
