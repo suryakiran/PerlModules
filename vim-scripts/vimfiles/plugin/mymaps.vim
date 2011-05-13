@@ -89,9 +89,6 @@ else
 	:nmap ,v :e $VIM/_gvimrc <CR>
 	:nmap ,l :e $VIM/gvimrc-local <CR>
 endif
-map <C-A> :cs add ${FLUENT_INC}/fluent_cscope_reference.out ${FLUENT_INC} <CR>
-map <C-R> :cs reset <CR>
-map <C-S> :cs show <CR>
 map <C-c> :set cmdheight=1 <CR>
 
 map <C-q> :%s/\([A-Z]\)\([A-Z]\+\)/\1\L\2/gc <CR>
