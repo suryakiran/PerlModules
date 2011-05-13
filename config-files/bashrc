@@ -1,0 +1,121 @@
+#!/bin/bash
+
+alias gvim='perl ~/GitRepos/scripts/perl-scripts/gvim.pl'
+alias c=clear
+alias e=exit
+alias sb='source ~/.bashrc'
+alias vd='gvim ~/.devenv'
+alias vb='gvim -s gvim -f ~/.bashrc'
+alias ls='ls -F --color=auto'
+alias dir='ls -l | grep "^d"'
+alias du='du -h'
+alias l='ls -l'
+alias cmake='cmake -Wno-dev'
+alias cmd='cmake -DCMAKE_BUILD_TYPE=Debug'
+alias cmr='cmake -DCMAKE_BUILD_TYPE=Release'
+alias xo='xdg-open'
+alias me='mount-electra'
+alias grep='grep --color=always'
+alias rm='rm -i'
+#alias gdb='cgdb'
+
+alias vmake='make VERBOSE=1'
+alias rcmake='make rebuild_cache'
+
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM="auto"
+source $HOME/.git-completion.bash
+source $HOME/.devenv
+
+export BOOST_ROOT=$HOME/Packages/Boost-1.46.1
+export LS_COLORS="ex=00;36"
+
+if [[ -z $oldpath ]]; then
+	export PATH=$HOME/Packages/ActivePerl-5.12.3/bin:$PATH
+	oldpath=$PATH
+fi
+
+dpkg_a=`which dpkg-architecture`
+
+if [[ -n $dpkg_a ]]; then
+  multi_arch=`$dpkg_a -qDEB_HOST_MULTIARCH`
+  export PKG_CONFIG_PATH=/usr/lib/$multi_arch/pkgconfig:$PKG_CONFIG_PATH
+fi
+
+export PATH=$HOME/Packages/bin:$oldpath
+export LD_LIBRARY_PATH=$HOME/Packages/lib:$LD_LIBRARY_PATH
+
+ungst()
+{
+	export PS1="[ \e[43m\u@\h:\e[0m \e[31m\w\e[0m ] \e[34m>> \e[0m"
+
+  unset SVN
+  unset TCLDIR
+  unset OPENSSLDIR
+  unset GRAPHVIZDIR
+  unset XERCESDIR
+  unset GST_STAGING_DIR
+  unset GST_INSTALL_DIR
+  unset GC
+  unset OEMPROFILE
+}
+
+git-prompt()
+{
+  echo -e "\e[92m`__git_ps1 '(%s)'`\e[0m"
+}
+
+gst()
+{
+	gst_packages_dir=$HOME/Gst-Packages
+  export SVN=`which svn`
+	export TCLDIR=$gst_packages_dir/Tcl-8.5.9
+	export OPENSSLDIR="$gst_packages_dir/OpenSSL-1.0.0d"
+	export GRAPHVIZDIR=$gst_packages_dir/Graphviz-2.26.3
+	export XERCESDIR=$gst_packages_dir/Xerces-3.1.1
+  export PS1='[ \e[45m\u@\h:\e[0m \e[31m\w\e[0m $(git-prompt)] \e[33m>> \e[0m'
+  export GST_STAGING_DIR=$HOME/GeneroStudio-Devel
+  export GST_INSTALL_DIR=$HOME/GeneroStudio-Install
+  export GC=$GSTDIR/exe-na-gc/bin/GC
+  export OEMPROFILE=res-fjs-oem/studio/product-defs.sh
+
+  #export GSTDIR=$HOME/gst
+  #export TCL_LIBDIR=$TCLDIR/lib
+  #export OPENSSL_LIBDIR=$OPENSSLDIR/lib
+  #export GRAPHVIZ_LIBDIR=$GRAPHVIZDIR/lib
+  #export XERCES_LIBDIR=$XERCESDIR/lib
+  #export XERCES_INCLUDEDIR=$XERCESDIR/include
+	#export QTDIR="$HOME/Packages/Qt-4.6.3"
+	#export PATH=$QTDIR/bin:$PATH
+	#export LD_LIBRARY_PATH=$QTDIR/lib:$LD_LIBRARY_PATH
+	#export LD_LIBRARY_PATH=$gst_packages_dir/lib:$LD_LIBRARY_PATH
+	#export LD_LIBRARY_PATH=$OPENSSL_LIBDIR:$LD_LIBRARY_PATH
+	#export LD_LIBRARY_PATH=$XERCES_LIBDIR:$LD_LIBRARY_PATH
+  #export LD_LIBRARY_PATH=$GSTDIR/bin-fjs-generostudio/lib/qt:$LD_LIBRARY_PATH
+  #export LD_LIBRARY_PATH=$GSTDIR/bin-fjs-generostudio/lib:$LD_LIBRARY_PATH
+	#export PATH=$gst_packages_dir/bin:$PATH
+  #export TCL_LIBNAME=tcl8.5
+
+  #alias gsexe="$GSTDIR/bin-fjs-generostudio/bin/generostudio 2>/dev/null &"
+  #alias gsdbg="gdb $GSTDIR/bin-fjs-generostudio/lib/generostudio-bin"
+  #alias gsdbg_c="cgdb $GSTDIR/bin-fjs-generostudio/lib/generostudio-bin"
+
+	cd $HOME/gst
+}
+
+bgst()
+{
+	gst
+	cd $HOME/builds/gst
+}
+
+mount-electra()
+{
+    pass=M5s9j2F4
+    echo $pass | sshfs suki@192.168.1.4:/work/team ~/electra-all -o workaround=rename -o password_stdin
+    echo $pass | sshfs suki@192.168.1.4:/work/home/suki/tmp ~/electra -o workaround=rename -o password_stdin
+}
+
+ungst
