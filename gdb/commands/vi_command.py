@@ -1,25 +1,37 @@
 import os
 import gdb
 import re
-import os
+
+class ViPrefixCommand (gdb.Command):
+  '''
+  Syntax: None.
+
+  This is a prefix command. 
+  '''
+  def __init__(self):
+    super(ViPrefixCommand, self).__init__(
+        'vi', 
+        gdb.COMMAND_SUPPORT,
+        gdb.COMPLETE_NONE,
+        True
+        )
 
 class ViCommand (gdb.Command):
   '''
   Syntax:
-    vi-file [arg]
+    vi file [arg]
 
-  with optional argument arg, vi-file opens file arg in gvim.
-  When no argument given, vi-file opens the currently opened file.
+  with optional argument arg, vi file opens file arg in gvim.
+  When no argument given, vi file opens the currently opened file.
   '''
   def __init__(self):
-    super(ViCommand, self).__init__('vi-file', gdb.COMMAND_SUPPORT)
+    super(ViCommand, self).__init__('vi file', gdb.COMMAND_SUPPORT)
     self.regex = re.compile ('Line (\d+) of "([^"]*)"')
-    pass
 
   def invoke (self, arg, from_tty):
     f = ''
     l = 1
- 
+
     if arg == '':
       line_info = gdb.execute('info line', False, True)
       match = self.regex.search(line_info)
@@ -37,8 +49,17 @@ class ViCommand (gdb.Command):
     except gdb.error:
       server = 'gdb'
 
-    cmd = 'gvim --servername %s --remote-tab-silent +%s "%s"' % (server, l, f)
-    os.system(cmd)
+    cmd = ['gvim']
+    gviminit_file = os.path.join(os.getcwd(), 'gviminit.vim')
+
+    if os.path.exists(gviminit_file):
+      cmd.append('-S %s' % (gviminit_file))
+
+    cmd.append('--servername %s' % (server))
+    cmd.append('--remote-tab-silent +%s "%s"' % (l, f))
+    cmd.append('2>/dev/null')
+ 
+    os.system(' '.join(cmd))
 
 class ViAltCommand (gdb.Command):
   '''
@@ -48,11 +69,11 @@ class ViAltCommand (gdb.Command):
   Opens the header/source file for C/C++ language for the corresponding
   source/header file opened by gdb.
 
-  vi-alt-file behavior will be same as vi-file if no alternative file found.
+  vi-alt-file behavior will be same as vi file if no alternative file found.
   '''
   def __init__(self):
     super(ViAltCommand, self).__init__(
-        'vi-alt-file', 
+        'vi alt-file', 
         gdb.COMMAND_SUPPORT
         )
     self.regex = re.compile ('Current source file is (.*)')
@@ -65,7 +86,6 @@ class ViAltCommand (gdb.Command):
         '.hpp': ['.cpp', 'C', '.cxx'],
         '.hxx': ['.cxx', '.cxx', 'C']
         }
-    pass
 
   def invoke (self, arg, from_tty):
     source_info = gdb.execute('info source', False, True)
@@ -106,7 +126,8 @@ class ViAltCommand (gdb.Command):
     if file_found:
       file_to_open = alt_file
 
-    gdb.execute('vi-file %s' % (file_to_open))
+    gdb.execute('vi file %s' % (file_to_open))
 
+ViPrefixCommand()
 ViCommand()
 ViAltCommand()

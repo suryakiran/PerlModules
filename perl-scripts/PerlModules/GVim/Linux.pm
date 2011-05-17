@@ -24,4 +24,10 @@ sub launch() {
   system($str);
 }
 
+sub serverList() {
+  my $exe = gvimExe();
+  my $list = `$exe --serverlist`;
+  return split(' ', $list);
+}
+
 1;

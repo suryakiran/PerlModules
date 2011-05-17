@@ -4,6 +4,8 @@ use File::Basename;
 use File::Spec::Functions;
 
 use constant IS_LINUX => ($^O =~ /linux/);
+use constant false => 0;
+use constant true => 1;
 
 BEGIN {
   unshift @INC, catfile(dirname(__FILE__), 'PerlModules');
@@ -35,7 +37,6 @@ my $opts;
 
 my $result = GetOptions (
 	'file|f=s@' => \$files,
-	'vimoptions|v=s@' => \$vimOptions,
 	'server|s=s' => \$server,
 	'line|l=i' => \$lineNum,
 	'col|c=i' => \$columnNum,
@@ -44,7 +45,12 @@ my $result = GetOptions (
 );
 
 my $vimargs;
-push (@$vimargs, GVim->gvimExe());
+my $gvimExe = GVim->gvimExe();
+
+push (@$vimargs, $gvimExe);
+
+my @gvimServersRunning = GVim->serverList();
+
 push (@$vimargs, '--servername');
 
 if ($server) {
@@ -52,6 +58,13 @@ if ($server) {
   if (exists($serverMap{$server})) {
     $server = $serverMap{$server};
   }
+}
+
+$server =~ tr/a-z/A-Z/;
+my $serverIsRunning = false;
+
+if ($server ~~ @gvimServersRunning) {
+  $serverIsRunning = true;
 }
 
 push (@$vimargs, $server);
@@ -83,6 +96,9 @@ if ($files) {
       push (@$vimargs, "$_");
     }
   }
+} elsif ($serverIsRunning){
+  push (@$vimargs, '--remote-send');
+  push (@$vimargs, "'<Esc><CR>'");
 }
 
 if (IS_LINUX) {
@@ -91,4 +107,5 @@ if (IS_LINUX) {
 
 my $vimargs_string = join (' ', @$vimargs);
 
+#print $vimargs_string . "\n";
 GVim->launch(@$vimargs);

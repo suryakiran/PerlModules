@@ -1,5 +1,5 @@
 "
-" Last Change: 13-Apr-2011 12:10:33 .
+" Last Change: 10-May-2011 12:35:50 .
 "
 filetype plugin indent on
 set autoindent
@@ -79,7 +79,6 @@ autocmd BufNew,BufWritePre,BufNewFile,BufRead PYTHON set softtabstop=4
 im :<CR> :<CR>
 
 au CursorHold * call ShowBlockName ('quiet')
-set path=$CUE_DIR/*/include
 set history=20
 set shortmess=a 
 set cmdheight=1

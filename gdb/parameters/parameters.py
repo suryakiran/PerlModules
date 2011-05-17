@@ -1,3 +1,4 @@
+import os
 import gdb
 
 class ViServerParam(gdb.Parameter):
@@ -50,8 +51,33 @@ class ViDebugParam(gdb.Parameter):
     s = 'Vi Commands debugging flag is set to ' + svalue
     return s
 
+class ViInitDirParam(gdb.Parameter):
+  '''
+  Vi initial directory
+  '''
+
+  set_doc = 'Set Vi Initial Directory'
+  show_doc = 'Show Vi Initial Directory'
+
+  def __init__(self):
+    super (ViInitDirParam, self).__init__(
+        'vi-init-dir',
+        gdb.COMMAND_SUPPORT,
+        gdb.PARAM_STRING
+        )
+    self.value = os.environ['HOME']
+
+  def get_set_string(self):
+    s = 'Vi initial directory is now set to %s' % (self.value)
+    return s
+
+  def get_show_string(self, svalue):
+    s = 'Vi initial directory is set to %s' % (svalue)
+    return s
+
 def parameters():
   pass
 
 ViServerParam()
 ViDebugParam()
+ViInitDirParam()
