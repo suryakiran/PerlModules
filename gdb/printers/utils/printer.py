@@ -17,10 +17,15 @@ class Printer(gdb.printing.PrettyPrinter):
 
     try:
       switch(tp.code)
+    except (case(gdb.TYPE_CODE_VOID)):
+      return None
     except (case(gdb.TYPE_CODE_REF), case(gdb.TYPE_CODE_PTR)):
       tp = tp.target()
     except (case(gdb.TYPE_CODE_TYPEDEF)):
-      tp = tp.unqalified().strip_typedefs()
+      tp = tp.unqualified().strip_typedefs()
+
+    if (tp.code == gdb.TYPE_CODE_VOID):
+      return None
 
     tp = tp.unqualified().strip_typedefs()
     typename = tp.tag

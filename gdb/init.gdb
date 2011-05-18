@@ -30,6 +30,7 @@ from gst import *
 printers.register(None)
 
 from glib import printers as glib_printers
+from glib import commands as glib_commands
 glib_printers.register(None)
 
 sys.path.insert (0, commands_dir)
