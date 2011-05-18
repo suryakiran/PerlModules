@@ -123,7 +123,7 @@ hi cppMath         gui=NONE guifg=#3388ff
 hi cppStreams      gui=BOLD guifg=#b6af87
 hi cppFlags        gui=NONE guifg=#be00be
 hi cppKeyword      gui=NONE guifg=#fe9e3f
-hi cppCasts        gui=NONE guifg=#00aaaa
+hi cppCasts        gui=NONE guifg=#00aa00
 
 hi gtkWidget gui=BOLD guifg=#a0a0ff
 hi gtkEnums  gui=NONE guifg=#99ee99

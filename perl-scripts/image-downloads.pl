@@ -6,6 +6,8 @@ use WWW::Mechanize;
 use HTML::Parser;
 use HTML::Tree;
 use File::Glob ':glob';
+use File::Spec::Functions;
+use File::Path;
 use strict;
 use warnings;
 
@@ -18,34 +20,41 @@ my @days=localtime(time);
 my $dateStr = sprintf("%02d%02d%02d", ($days[5] % 100),$days[4]+1, $days[3]);
 my $mailDate = sprintf("%02d-%s-%d", $days[3], $months[$days[4]], $days[5] + 1900);
 
-my ($kingFeatures, %ucomics, $arcamax);
+my ($kingFeatures, $ucomics, $arcamax, @cartoons);
 
 my $downloadCartoons = true;
 my $downloadNg = true;
 my $debugScript = true;
 
-my $imageDir = "$ENV{'HOME'}/tmp/Image-Downloads";
-mkdir $imageDir, 0777 unless -d $imageDir;
-$imageDir = "$imageDir/images-".$mailDate;
-mkdir $imageDir, 0777 unless -d $imageDir;
+my $imageDir = catfile($ENV{'HOME'}, "tmp", "Image-Downloads", "images-".$mailDate);
+File::Path::make_path ($imageDir);
 
-$arcamax->{"dilbert"}->{"output"} = $imageDir . "/db" . $dateStr . ".gif";
 #$arcamax->{"heathcliff"}->{"output"} = $imageDir . "/hc" . $dateStr . ".gif";
-
 #$kingFeatures->{"bethalf"}->{"long name"} = "Better_Half";
 #$kingFeatures->{"bethalf"}->{"output"} = $imageDir . "/bh" . $dateStr . ".gif";
+
+$arcamax->{"dilbert"}->{"output"} = $imageDir . "/db" . $dateStr . ".gif";
 
 $kingFeatures->{"bbailey"}->{"long name"} = "Beetle_Bailey";
 $kingFeatures->{"bbailey"}->{"output"} = $imageDir . "/bb" . $dateStr . ".gif";
 
-$kingFeatures->{"hagar"}->{"output"}   = $imageDir . "/hh" . $dateStr . ".gif";
+$kingFeatures->{"hagar"}->{"output"} = $imageDir . "/hh" . $dateStr . ".gif";
 $kingFeatures->{"hagar"}->{"long name"} = "Hagar_The_Horrible";
 
-$ucomics{"compu-toon"} = "tmcom".$dateStr.".gif";
-$ucomics{"animalcrackers"} = "tmani".$dateStr.".gif";
-$ucomics{"garfield"} = "ga".$dateStr.".gif";
-$ucomics{"bottomliners"} = "tmbot".$dateStr.".gif";
-$ucomics{"9to5"} = "tmntf".$dateStr.".gif";
+$ucomics->{"animalcrackers"}->{"output-name"} = "tmani".$dateStr.".gif";
+$ucomics->{"animalcrackers"}->{"alt"} = "Animal Crackers";
+
+$ucomics->{"garfield"}->{"output-name"} = "ga".$dateStr.".jpg";
+$ucomics->{"garfield"}->{"alt"} = "Garfield";
+
+$ucomics->{"bottomliners"}->{"output-name"} = "tmbot".$dateStr.".gif";
+$ucomics->{"bottomliners"}->{"alt"} = "Bottomliners";
+
+$ucomics->{"9to5"}->{"output-name"} = "tmntf".$dateStr.".gif";
+$ucomics->{"9to5"}->{"alt"} = "9 to 5";
+
+$ucomics->{"calvinandhobbes"}->{"output-name"} = "ch".$dateStr.".jpg";
+$ucomics->{"calvinandhobbes"}->{"alt"} = "Calvin and Hobbes";
 
 my $mech = WWW::Mechanize->new (autocheck=>1);
 
@@ -60,6 +69,7 @@ if ($downloadCartoons) {
 
 		if ($image) {
 			$mech->get($image->url(), ':content_file' => $output);
+      push @cartoons, $output;
 		}
 	}
 
@@ -72,15 +82,25 @@ if ($downloadCartoons) {
 		"http://www.kingfeatures.com/features/comics/" . $_ .  "/aboutMaina.php";
 
 		$mech->get ($url, 'Referer' => $referer, ':content_file' => $output);
+    push @cartoons, $output;
 	}
 
-	for (keys %ucomics) {
-		$mech->get("http://www.gocomics.com/".$_);
-		my $image = $mech->find_image(url_regex => qr/imgsrv/);
-		if ($image) {
-			$mech->get($image->url(), ':content_file' => "$imageDir/$ucomics{$_}");
-		}
-	}
+  for (keys %$ucomics) {
+    my $comic = $_;
+    $mech->get("http://www.gocomics.com/".$_);
+    my @images = $mech->find_all_images(alt_regex => qr/$ucomics->{$comic}->{"alt"}/);
+    LOOP_ALL_IMAGES : {
+      foreach my $image (@images) {
+        my $url = $image->url();
+        if ($url =~ /uclick\.com/) {
+          my $output = $ucomics->{$comic}->{"output-name"};
+          $mech->get($url, ':content_file' => catfile($imageDir, $output));
+          push @cartoons, $output;
+          last LOOP_ALL_IMAGES;
+        }
+      }
+    }
+  }
 
 	$mech->get("http://www.glasbergen.com");
 	my $randyImage = $mech->find_image (
@@ -88,11 +108,11 @@ if ($downloadCartoons) {
 	);
 
 	if ($randyImage) {
-		$mech->get($randyImage->url(), ':content_file' => "$imageDir/randy".$dateStr.".gif");
+    my $output = catfile ($imageDir, "randy" . $dateStr . ".gif");
+		$mech->get($randyImage->url(), ':content_file' => $output);
+    push @cartoons, $output;
 	}
 }
-
-my @cartoons = bsd_glob("$imageDir/*.gif");
 
 if ($downloadNg) {
 	$mech->get("http://photography.nationalgeographic.com/photography/photo-of-the-day");
