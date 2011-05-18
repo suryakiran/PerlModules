@@ -29,6 +29,9 @@ qt.register_qt_printers(None)
 from gst import *
 printers.register(None)
 
+from glib import printers as glib_printers
+glib_printers.register(None)
+
 sys.path.insert (0, commands_dir)
 from commands import commands
 

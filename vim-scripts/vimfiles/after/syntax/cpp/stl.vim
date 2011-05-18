@@ -29,10 +29,12 @@ syn match cppStlFunctions "\(not_\)\?equal_to[(\s]\+"he=e-1
 syn match cppStlFunctions "\(const_\)\?mem_fun1\?\(_ref\)\?_t[(\s]\+"he=e-1
 syn match cppStlFunctions "\(unary\|binary\)_negate[(\s]\+"he=e-1
 
+syn match cppCasts        "\<\(static\|dynamic\|const\|reinterpret\)_cast\>"
+
 syn keyword cppStlFunctions reserve ptr_fun erase advance insert base what rfind mismatch for_each first second reverse transform
 syn keyword cppStlFunctions precision capacity inner_product partial_sum adjacent_difference rotate binary_search lexicographical_compare
 syn keyword cppStlFunctions epsilon distance length getline iter_swap front unique compare imbue getloc accumulate swap make_pair
 
 syn match cppStlFunctors   "logical_\(and\|or\|not\)"
-syn match cppStlFunctors   "\(greater\|less\)\(_equal\)\?"
+syn match cppStlFunctors   "\<\(greater\|less\)\(_equal\)\?\>"
 syn keyword cppStlFunctors plus minus multiplies divides modulus negate
