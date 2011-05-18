@@ -8,17 +8,26 @@ use HTML::Tree;
 use File::Glob ':glob';
 use File::Spec::Functions;
 use File::Path;
+use File::Copy;
+use File::Type;
 use strict;
 use warnings;
 
 use constant false => 0;
 use constant true => 1;
 
+my $ft = File::Type->new();
 my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
 
 my @days=localtime(time);
 my $dateStr = sprintf("%02d%02d%02d", ($days[5] % 100),$days[4]+1, $days[3]);
 my $mailDate = sprintf("%02d-%s-%d", $days[3], $months[$days[4]], $days[5] + 1900);
+my $imageDetails;
+
+my %extensions = (
+  'image/jpeg' => '.jpg',
+  'image/gif'  => '.gif'
+);
 
 my ($kingFeatures, $ucomics, $arcamax, @cartoons);
 
@@ -33,30 +42,46 @@ File::Path::make_path ($imageDir);
 #$kingFeatures->{"bethalf"}->{"long name"} = "Better_Half";
 #$kingFeatures->{"bethalf"}->{"output"} = $imageDir . "/bh" . $dateStr . ".gif";
 
-$arcamax->{"dilbert"}->{"output"} = $imageDir . "/db" . $dateStr . ".gif";
+$arcamax->{"dilbert"}->{"output"} = catfile($imageDir, "/db" . $dateStr);
 
 $kingFeatures->{"bbailey"}->{"long name"} = "Beetle_Bailey";
-$kingFeatures->{"bbailey"}->{"output"} = $imageDir . "/bb" . $dateStr . ".gif";
+$kingFeatures->{"bbailey"}->{"output"} = catfile($imageDir, "/bb" . $dateStr);
 
-$kingFeatures->{"hagar"}->{"output"} = $imageDir . "/hh" . $dateStr . ".gif";
+$kingFeatures->{"hagar"}->{"output"} = catfile($imageDir, "/hh" . $dateStr);
 $kingFeatures->{"hagar"}->{"long name"} = "Hagar_The_Horrible";
 
-$ucomics->{"animalcrackers"}->{"output-name"} = "tmani".$dateStr.".gif";
+$ucomics->{"animalcrackers"}->{"output-name"} = catfile($imageDir, "tmani".$dateStr);
 $ucomics->{"animalcrackers"}->{"alt"} = "Animal Crackers";
 
-$ucomics->{"garfield"}->{"output-name"} = "ga".$dateStr.".jpg";
+$ucomics->{"garfield"}->{"output-name"} = catfile($imageDir, "ga".$dateStr);
 $ucomics->{"garfield"}->{"alt"} = "Garfield";
 
-$ucomics->{"bottomliners"}->{"output-name"} = "tmbot".$dateStr.".gif";
+$ucomics->{"bottomliners"}->{"output-name"} = catfile($imageDir, "tmbot" . $dateStr);
 $ucomics->{"bottomliners"}->{"alt"} = "Bottomliners";
 
-$ucomics->{"9to5"}->{"output-name"} = "tmntf".$dateStr.".gif";
+$ucomics->{"9to5"}->{"output-name"} = catfile($imageDir, "tmntf" . $dateStr);
 $ucomics->{"9to5"}->{"alt"} = "9 to 5";
 
-$ucomics->{"calvinandhobbes"}->{"output-name"} = "ch".$dateStr.".jpg";
+$ucomics->{"calvinandhobbes"}->{"output-name"} = catfile($imageDir, "ch" .  $dateStr);
 $ucomics->{"calvinandhobbes"}->{"alt"} = "Calvin and Hobbes";
 
 my $mech = WWW::Mechanize->new (autocheck=>1);
+
+sub file_name_from_mime_type {
+  my $file = shift();
+  my $isCartoon = shift();
+  my $mime_type = $ft->mime_type($file);
+  my $extn = $extensions{$mime_type};
+  my $newFileName = sprintf("%s%s", $file, $extn);
+  move ($file, $newFileName);
+
+  if ($isCartoon) {
+    push @cartoons, $newFileName;
+  }
+
+  $imageDetails->{$newFileName}->{'mime-type'} = $mime_type;
+  return $newFileName;
+}
 
 if ($downloadCartoons) {
 
@@ -69,7 +94,7 @@ if ($downloadCartoons) {
 
 		if ($image) {
 			$mech->get($image->url(), ':content_file' => $output);
-      push @cartoons, $output;
+      file_name_from_mime_type ($output, true);
 		}
 	}
 
@@ -82,7 +107,7 @@ if ($downloadCartoons) {
 		"http://www.kingfeatures.com/features/comics/" . $_ .  "/aboutMaina.php";
 
 		$mech->get ($url, 'Referer' => $referer, ':content_file' => $output);
-    push @cartoons, $output;
+    file_name_from_mime_type ($output, true);
 	}
 
   for (keys %$ucomics) {
@@ -94,8 +119,8 @@ if ($downloadCartoons) {
         my $url = $image->url();
         if ($url =~ /uclick\.com/) {
           my $output = $ucomics->{$comic}->{"output-name"};
-          $mech->get($url, ':content_file' => catfile($imageDir, $output));
-          push @cartoons, $output;
+          $mech->get($url, ':content_file' => $output);
+          file_name_from_mime_type($output, true);
           last LOOP_ALL_IMAGES;
         }
       }
@@ -108,9 +133,9 @@ if ($downloadCartoons) {
 	);
 
 	if ($randyImage) {
-    my $output = catfile ($imageDir, "randy" . $dateStr . ".gif");
+    my $output = catfile ($imageDir, "randy" . $dateStr);
 		$mech->get($randyImage->url(), ':content_file' => $output);
-    push @cartoons, $output;
+    file_name_from_mime_type($output, true)
 	}
 }
 
@@ -128,20 +153,21 @@ if ($downloadNg) {
 	);
 
 	my ($ngDesc, $ngTitle);
-	my $ngImageName = "ng" . $dateStr . ".jpg";
+	my $ngImageName = catfile($imageDir, "ng" . $dateStr);
 	my $imageFound = false;
 	my $wallPaper = false;
 
 	if ($link) {
-		$mech->get($link->url(), ':content_file' => "$imageDir/$ngImageName");
+		$mech->get($link->url(), ':content_file' => $ngImageName);
 		$imageFound = true;
 		$wallPaper = true;
 	} elsif ($smallImage) {
-		$mech->get($smallImage->url(), ':content_file' => "$imageDir/$ngImageName");
+		$mech->get($smallImage->url(), ':content_file' => $ngImageName);
 		$imageFound = true;
 	}
 
 	if ($imageFound) {
+    my $imageName = file_name_from_mime_type($ngImageName, false);
 		my $tree = HTML::TreeBuilder->new();
 		$tree->parse_content($content);
 		my @caption = $tree->find_by_attribute("id", "caption");
@@ -156,9 +182,7 @@ if ($downloadNg) {
 			}
 		}
 
-		my $ngImage = bsd_glob("$imageDir/ng*jpg");
-
-		if ($ngImage) {
+		if (-e $imageName) {
 			my $htmlBody = "<font face='Trebuchet MS' color='#aa0000'>";
 			$htmlBody = $htmlBody . $ngTitle ;
 			$htmlBody = $htmlBody . "</font>";
@@ -168,15 +192,16 @@ if ($downloadNg) {
 
 			my $ngMsg = MIME::Lite->new (
 				From => 'Surya Kiran <suryakiran.gullapalli@gmail.com>',
-				Bcc => 'surya.4js@gmail.com, raomvn99@gmail.com, kvsssrikanth@gmail.com, sujay.chaurasia@gmail.com',                      
+        Bcc => 'surya.4js@gmail.com, raomvn99@gmail.com, kvsssrikanth@gmail.com, sujay.chaurasia@gmail.com',                      
+        #Bcc => 'surya.4js@gmail.com',
 				Type => 'text/html',                                    
 				Data    => $htmlBody,                                   
 				Subject => "National Geographic Photo Of The Day for " . $mailDate
 			);                                                        
                                                                 
 			$ngMsg->attach (                                          
-				Type => 'image/jpeg',                                   
-				Path => $ngImage
+				Type => $imageDetails->{$imageName}->{'mime-type'},
+				Path => $imageName
 			);
 
 			$ngMsg->send('smtp', 'localhost');
@@ -194,11 +219,11 @@ if (@cartoons) {
 	);
 
 	foreach (@cartoons) {
-		$msg->attach(
-			Type => 'image/gif',
+    $msg->attach(
+      Type => $imageDetails->{$_}->{'mime-type'},
 			Path => $_
 		);
 	}
 
-	$msg->send('smtp', 'localhost');
+  $msg->send('smtp', 'localhost');
 }
