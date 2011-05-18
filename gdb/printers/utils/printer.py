@@ -19,6 +19,8 @@ class Printer(gdb.printing.PrettyPrinter):
       switch(tp.code)
     except (case(gdb.TYPE_CODE_REF), case(gdb.TYPE_CODE_PTR)):
       tp = tp.target()
+    except (case(gdb.TYPE_CODE_TYPEDEF)):
+      tp = tp.unqalified().strip_typedefs()
 
     tp = tp.unqualified().strip_typedefs()
     typename = tp.tag
