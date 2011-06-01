@@ -38,17 +38,17 @@ hi Constant		guifg=#7070a0
 
 hi Statement	term=bold
 hi Statement	cterm=bold			ctermfg=DarkGreen		ctermbg=White
-hi Statement	guifg=DarkGreen		gui=bold
+hi Statement	guifg=#4169db		gui=bold
 
 hi identifier	ctermfg=DarkGreen
 hi identifier	guifg=DarkGreen
 
 hi preproc		ctermfg=DarkGreen
 hi preproc		guifg=#804080 gui=ITALIC
-hi cIncluded    gui=ITALIC guibg=#abcdef guifg=#0000aa
+hi cIncluded    gui=ITALIC guifg=#0000aa
 
 hi type			ctermfg=DarkBlue
-hi type			guifg=DarkBlue
+hi type			gui=NONE guifg=DarkMagenta
 
 hi label		ctermfg=yellow
 hi label		guifg=#c06000
@@ -153,7 +153,7 @@ hi ModeMsg		gui=bold
 
 hi StatusLine	term=reverse,bold
 hi StatusLine	cterm=reverse,bold
-hi StatusLine	gui=reverse,bold
+hi StatusLine	gui=BOLD guibg=#b37a6b guifg=#ffffff
 
 hi StatusLineNC	term=reverse
 hi StatusLineNC	cterm=reverse
@@ -161,7 +161,7 @@ hi StatusLineNC	gui=NONE guibg=#dfcbc3 guifg=#555555
 
 hi VertSplit	term=reverse
 hi VertSplit	cterm=reverse
-hi VertSplit	gui=NONE guibg=#b37a6b guifg=#ced6d8
+hi VertSplit	gui=NONE guibg=#888888 guifg=#ced6d8
 
 hi Visual		term=reverse
 hi Visual		cterm=reverse
@@ -174,20 +174,20 @@ hi VisualNOS	gui=underline,bold
 hi Todo			gui=reverse
 
 hi gtkmmNameSpace gui=bold guifg=#ff0000
-hi qt4Class gui=bold guifg=#aa0080
+hi qt4Class gui=bold guifg=#008888
 hi gtkmmFuncs gui=bold guifg=#aa0000
 hi gtkmmEvents gui=bold guifg=#ae0cba
 hi gtkmmSignals gui=bold guifg=#ff0000 guibg=#bbaaff
 hi gtkmmVirtuals gui=bold guifg=#fa0cfe
 hi gtkmmEnums gui=bold guifg=#ff0000 guibg=#bbaaff
 
-hi boostNamespace gui=bold guibg=#aaaaaa guifg=#0000a0
+hi cppNamespace gui=italic guifg=#003300
+
 hi boostClasses gui=bold guifg=#aa0000
 hi boostFunctions gui=none  guifg=#800080
 
 hi cFunction       gui=NONE guifg=#00aaff
 hi cppKeyword      gui=NONE guifg=#ff52a7
-hi cppNamespace    gui=BOLD guifg=#008888
 hi cppStreamFlags  gui=NONE guifg=#f0ccfc
 hi cppStreamFuncs  gui=NONE guifg=#68d8ff
 hi cppStlFunctions gui=NONE guifg=#00aa33
@@ -200,3 +200,5 @@ hi cppFlags        gui=NONE guifg=#be00be
 hi cppStl          gui=BOLD guifg=#fe5e5f
 hi cppCasts        gui=NONE guifg=#00ffff
 " vim: sw=2
+"
+hi link boostNamespace cppNamespace
