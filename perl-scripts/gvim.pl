@@ -21,13 +21,14 @@ use Getopt::Long qw(:config no_ignore_case);
 
 my $files;
 my $vimOptions;
-my $server='gvim';
+my $server;
 my $lineNum=1;
 my $columnNum=1;
 my $readLocalSource;
 my $editPerlFile;
 my $editVimrcFile;
 my $vcSolutionName;
+my $package = $ENV{'CURRENT_PACKAGE_NAME'};
 
 my %serverMap =  (
   'GeneroStudio' => 'gst',
@@ -58,6 +59,25 @@ if ($server) {
   if (exists($serverMap{$server})) {
     $server = $serverMap{$server};
   }
+} elsif ($package) {
+  $server = $package;
+} else {
+  $server = 'gvim';
+}
+
+#
+# To open gvimrc/gvimrc-local/gvim.pl/bashrc files the server is always gvim to
+# avoid confusion
+#
+
+if ($editPerlFile) {
+  $server = 'gvim';
+  @$files = ();
+  push (@$files, __FILE__);
+} elsif ($editVimrcFile) {
+  $server = 'gvim';
+  @$files = ();
+  push (@$files, GVim->gvimrcFile());
 }
 
 $server =~ tr/a-z/A-Z/;
@@ -68,14 +88,6 @@ if ($server ~~ @gvimServersRunning) {
 }
 
 push (@$vimargs, $server);
-
-if ($editPerlFile) {
-  @$files = ();
-  push (@$files, __FILE__);
-} elsif ($editVimrcFile) {
-  @$files = ();
-  push (@$files, GVim->gvimrcFile());
-}
 
 if ($files) {
 	push (@$vimargs, '--remote-tab-silent');
