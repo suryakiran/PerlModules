@@ -27,13 +27,14 @@ hi Number		    guifg=#b1d28f
 hi Type			    gui=NONE guifg=#ffdca8
 hi Constant		    guifg=#dfbfff
 hi Comment		    guifg=#b3925d
-hi Cursor		    guibg=#2a3f6a guifg=LightGrey
+hi Cursor		    guibg=#f9ccca guifg=DarkRed
 hi LineNr 		    guifg=#ccaa22
 hi PreProc		    guifg=#a8774e
 hi cIncluded        gui=ITALIC guifg=#a8dde0
 hi Function         gui=ITALIC guifg=#f29b68
 hi Statement	    gui=NONE guifg=#e5ff00
 hi String		    gui=ITALIC guifg=#d5d1cf
+hi Operator         gui=ITALIC guifg=#f2bb88
 
 hi NonText		term=bold
 hi NonText		ctermfg=LightBlue
@@ -47,10 +48,6 @@ hi identifier	guifg=DarkGreen
 
 hi label		ctermfg=yellow
 hi label		guifg=#c06000
-
-hi operator		ctermfg=darkYellow
-hi operator		guifg=DarkGreen		gui=bold
-
 
 hi lCursor		guibg=Cyan			guifg=Black
 
