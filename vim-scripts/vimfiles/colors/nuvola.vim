@@ -71,6 +71,9 @@ hi Statement term=BOLD ctermfg=DarkRed gui=NONE guifg=orange3
 hi Tag term=BOLD ctermfg=DarkGreen guifg=DarkGreen
 hi Todo term=STANDOUT ctermbg=Yellow ctermfg=blue guifg=Blue guibg=Yellow
 hi Type term=UNDERLINE ctermfg=Blue gui=NONE guifg=Blue
+
+hi cIncluded gui=ITALIC guifg=#b35732
+
 hi! link String	Constant
 hi! link Character	Constant
 hi! link Boolean	Constant
@@ -106,7 +109,6 @@ hi htmlUnderlineItalic      gui=UNDERLINE,ITALIC
 
 hi cFunction       gui=NONE guifg=#00aaff
 hi cppStlFunctions gui=NONE guifg=#337700
-hi cppNamespace    gui=NONE guibg=#dddddd guifg=#008888
 hi cppStreamFlags  gui=NONE guifg=#f08080
 hi cppStreamFuncs  gui=NONE guifg=#ff66ff
 hi cppStrFunctions gui=BOLD guifg=#5b5acc
@@ -124,9 +126,10 @@ hi boostClasses    gui=BOLD   guifg=#22aa22
 hi boostMacros     gui=ITALIC guibg=#dddddd guifg=#aa3333
 "hi boostNamespace  gui=NONE   guifg=#008888 guibg=#dddddd
 
-hi qt4Class    gui=BOLD guifg=#009999
+hi qt4Class    gui=BOLD guifg=#c71585
 hi qt4Macro    gui=ITALIC guifg=#aabbff
 hi qt4Funcs    gui=NONE guifg=#0066cc
 
+hi cppNamespace    gui=ITALIC guifg=#dd5555
 hi! link boostNamespace  cppNamespace
 hi! link qtNamespace     cppNamespace

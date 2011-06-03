@@ -6,6 +6,7 @@ syn match cppStreams "c\(out\|in\|err\|log\)"
 syn match cppStreams "end[sl]"
 
 syn keyword cppStreams      streampos flush
+syn keyword cppNamespace  std
 
 syn match cppStlFunctions "\(count\|replace\(_copy\)\?\|remove\(_copy\)\?\|copy\|find\)\(_if\)\?[(\s]\+"he=e-1
 syn match cppStlFunctions "[r]\?\(begin\|end\)[(\s]\+"he=e-1
