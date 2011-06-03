@@ -1,5 +1,5 @@
 "
-" Last Change: 10-May-2011 12:35:50 .
+" Last Change: 03-Jun-2011 08:38:56 .
 "
 filetype plugin indent on
 set autoindent
@@ -116,6 +116,10 @@ if filereadable (expand ("$VIM/gvimrc-local"))
   source $VIM/gvimrc-local
 elseif filereadable (expand("~/.gvimrc-local"))
   source ~/.gvimrc-local
+endif
+
+if filereadable (expand ("$GVIMRC_INIT_FILE"))
+  source $GVIMRC_INIT_FILE
 endif
 
 set noignorecase
