@@ -1,5 +1,5 @@
 "
-" Last Change: 03-Jun-2011 08:38:56 .
+" Last Change: 03-Jun-2011 11:01:44 .
 "
 filetype plugin indent on
 set autoindent
@@ -112,14 +112,14 @@ filetype indent on
 "autocmd BufReadPost,BufNew,BufNewFile,BufRead,BufEnter * call SetSyntaxForCppFiles()
 autocmd GUIEnter * call SetSyntaxForCppFiles()
 
+if filereadable (expand ("$GVIMRC_INIT_FILE"))
+  source $GVIMRC_INIT_FILE
+endif
+
 if filereadable (expand ("$VIM/gvimrc-local"))
   source $VIM/gvimrc-local
 elseif filereadable (expand("~/.gvimrc-local"))
   source ~/.gvimrc-local
-endif
-
-if filereadable (expand ("$GVIMRC_INIT_FILE"))
-  source $GVIMRC_INIT_FILE
 endif
 
 set noignorecase
