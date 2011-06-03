@@ -35,16 +35,7 @@ for rtp in runtime_path:
       currentSyntaxFile = os.path.join(root, curSyn)
       break
 
-requiredBuffer = None
-for b in vim.buffers:
-  if b.name == currentSyntaxFile:
-    requiredBuffer = b
-    break
-
-if requiredBuffer is None:
-  vim.command ('e %s' % (currentSyntaxFile))
-else:
-  vim.command ('b %s' % (currentSyntaxFile))
+vim.command("call OpenFile('%s')" % currentSyntaxFile)
 end_of_python
 endfunction
 
