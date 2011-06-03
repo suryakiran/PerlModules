@@ -19,6 +19,7 @@ use English;
 use GVim;
 use Getopt::Long qw(:config no_ignore_case);
 
+my $serverList;
 my $files;
 my $vimOptions;
 my $server;
@@ -37,6 +38,7 @@ my %serverMap =  (
 my $opts;
 
 my $result = GetOptions (
+  'serverlist|sl' => \$serverList,
 	'file|f=s@' => \$files,
 	'server|s=s' => \$server,
 	'line|l=i' => \$lineNum,
@@ -52,6 +54,13 @@ push (@$vimargs, $gvimExe);
 
 my @gvimServersRunning = GVim->serverList();
 
+if ($serverList) {
+  foreach (@gvimServersRunning) {
+    print $_ . "\n";
+  }
+  exit;
+}
+
 push (@$vimargs, '--servername');
 
 if ($server) {
@@ -66,8 +75,8 @@ if ($server) {
 }
 
 #
-# To open gvimrc/gvimrc-local/gvim.pl/bashrc files the server is always gvim to
-# avoid confusion
+# While opening gvimrc/gvimrc-local/gvim.pl/bashrc files the server is always 
+# set to gvim to avoid confusion
 #
 
 if ($editPerlFile) {
