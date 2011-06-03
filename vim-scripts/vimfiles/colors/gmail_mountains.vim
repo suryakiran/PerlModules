@@ -8,7 +8,7 @@
 " help pick things out in the files they edit, but doesn't want
 " **C**O**N**T**R**A**S**T**!
 
-set background=light
+set background=dark
 
 hi clear
 
@@ -16,39 +16,34 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "gmail_dusk"
+let colors_name = "gmail_mountains"
 
-hi Normal		ctermbg=White		ctermfg=Black
-" 660066 = darkish purple
-"hi Normal		guifg=#660066		guibg=grey80
-"hi Normal			guibg=grey80 guifg=#660000
-hi Normal			guibg=#e6e6dd guifg=#c7400b
+hi Normal			guifg=#a0d6fe guibg=#5e574d
+hi StatusLine	    gui=BOLD guifg=#4e5862 guibg=#ffffff
+hi StatusLineNC	    gui=NONE guibg=#808080 guifg=#ffffc0
+hi Special 		    guifg=#00ff00
+hi StorageClass 	guifg=#60d0a0			gui=none
+hi Number		    guifg=#b1d28f
+hi Type			    gui=NONE guifg=#ffdca8
+hi Constant		    guifg=#dfbfff
+hi Comment		    guifg=#b3925d
+hi Cursor		    guibg=#2a3f6a guifg=LightGrey
+hi LineNr 		    guifg=#ccaa22
+hi PreProc		    guifg=#a8774e
+hi cIncluded        gui=ITALIC guifg=#a8dde0
+hi Function         gui=ITALIC guifg=#f29b68
+hi Statement	    gui=NONE guifg=#e5ff00
+hi String		    gui=ITALIC guifg=#d5d1cf
 
 hi NonText		term=bold
 hi NonText		ctermfg=LightBlue
 hi NonText		gui=bold			guifg=LightBlue			guibg=grey80
 
-hi Comment		ctermfg=DarkGrey	ctermbg=White
-" 444499 = darkish blue grey
-hi Comment		guifg=#444499
-
-hi Constant		term=underline
-hi Constant		ctermfg=Magenta
-hi Constant		guifg=#7070a0
-
-hi Statement	term=bold
-hi Statement	cterm=bold			ctermfg=DarkGreen		ctermbg=White
-hi Statement	guifg=#4169db		gui=bold
 
 hi identifier	ctermfg=DarkGreen
 hi identifier	guifg=DarkGreen
 
-hi preproc		ctermfg=DarkGreen
-hi preproc		guifg=#804080 gui=ITALIC
-hi cIncluded    gui=ITALIC guifg=#0000aa
 
-hi type			ctermfg=DarkBlue
-hi type			gui=NONE guifg=DarkMagenta
 
 hi label		ctermfg=yellow
 hi label		guifg=#c06000
@@ -56,20 +51,6 @@ hi label		guifg=#c06000
 hi operator		ctermfg=darkYellow
 hi operator		guifg=DarkGreen		gui=bold
 
-hi StorageClass	ctermfg=DarkRed			ctermbg=White
-hi StorageClass	guifg=#a02060			gui=bold
-
-hi Number		ctermfg=Blue		ctermbg=White
-hi Number		guifg=Blue
-
-hi Special		term=bold
-hi Special		ctermfg=LightRed
-hi Special		guifg=#ff0000
-
-hi String		term=underline  cterm=bold ctermfg=magenta  guifg=#503000
-
-hi Cursor		ctermbg=DarkMagenta
-hi Cursor		guibg=#880088		guifg=LightGrey
 
 hi lCursor		guibg=Cyan			guifg=Black
 
@@ -87,7 +68,6 @@ hi Directory	guifg=Red gui=underline
 
 hi LineNr		term=underline
 hi LineNr		ctermfg=Yellow
-hi LineNr		guifg=#ccaa22
 
 hi MoreMsg		term=bold
 hi MoreMsg		ctermfg=LightGreen
@@ -151,14 +131,6 @@ hi ModeMsg		term=bold
 hi ModeMsg		cterm=bold
 hi ModeMsg		gui=bold
 
-hi StatusLine	term=reverse,bold
-hi StatusLine	cterm=reverse,bold
-hi StatusLine	gui=BOLD guibg=#b37a6b guifg=#ffffff
-
-hi StatusLineNC	term=reverse
-hi StatusLineNC	cterm=reverse
-hi StatusLineNC	gui=NONE guibg=#dfcbc3 guifg=#555555
-
 hi VertSplit	term=reverse
 hi VertSplit	cterm=reverse
 hi VertSplit	gui=NONE guibg=#888888 guifg=#ced6d8
@@ -181,7 +153,7 @@ hi gtkmmSignals gui=bold guifg=#ff0000 guibg=#bbaaff
 hi gtkmmVirtuals gui=bold guifg=#fa0cfe
 hi gtkmmEnums gui=bold guifg=#ff0000 guibg=#bbaaff
 
-hi cppNamespace gui=italic guifg=#003300
+hi cppNamespace gui=italic guifg=#f9ccca
 
 hi boostClasses gui=bold guifg=#aa0000
 hi boostFunctions gui=none  guifg=#800080

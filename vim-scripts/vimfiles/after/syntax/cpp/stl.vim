@@ -1,18 +1,18 @@
 syn match cppStreams "[oi]\?\(string\)\?stream\s\+" 
 syn match cppStreams "[oi]\?strstream\s\+"
-syn match cppStreams "\(f\|if\|of\|o\)stream\s\+"
+syn match cppStreams "\<w\?[io]\?f\?stream\>"
 syn match cppStreams "[oi]\?stream_iterator\s*<"he=e-1
-syn match cppStreams "c\(out\|in\|err\|log\)"
+syn match cppStreams "\<w\?c\(out\|in\|err\|log\)\>"
 syn match cppStreams "end[sl]"
 
 syn keyword cppStreams      streampos flush
-syn keyword cppNamespace  std
+syn keyword cppNamespace    std
 
 syn match cppStlFunctions "\(count\|replace\(_copy\)\?\|remove\(_copy\)\?\|copy\|find\)\(_if\)\?[(\s]\+"he=e-1
-syn match cppStlFunctions "[r]\?\(begin\|end\)[(\s]\+"he=e-1
+syn match cppStlFunctions "r\?\(begin\|end\)[(\s]\+"he=e-1
 syn match cppStlFunctions "find_\(first\|last\)\(_not\)\?_of[(\s]\?"he=e-1
 syn match cppStlFunctions "\(min\|max\)\(_element\)\?[(\s]\+"he=e-1
-syn match cppStlFunctions "not[12][(\s]\+"he=e-1
+syn match cppStlFunctions "\<not[12]\>"
 syn match cppStlFunctions "\(fill\|search\|copy\)\(_n\)\?[(\s]\+"he=e-1
 syn match cppStlFunctions "\(c_\|sub\)\?str[(\s]\+"he=e-1
 syn match cppStlFunctions "push\(_back\|_front\)\?[(\s]\+"he=e-1
