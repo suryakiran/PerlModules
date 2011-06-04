@@ -183,7 +183,7 @@ hi gtkmmEnums gui=bold guifg=#ff0000 guibg=#bbaaff
 
 hi cppNamespace gui=italic guifg=#003300
 
-hi boostClasses gui=bold guifg=#aa0000
+hi boostClasses   gui=bold guifg=#0057ae
 hi boostFunctions gui=none  guifg=#800080
 
 hi cFunction       gui=NONE guifg=#00aaff
