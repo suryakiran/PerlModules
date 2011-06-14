@@ -4,48 +4,60 @@ use strict;
 use warnings;
 
 use File::Spec::Functions;
+use File::Basename;
 use Carp;
 use Win32::Registry;
 use Win32::TieRegistry;
 use Win32::Process;
 use Win32;
 
-$GVim::Win32::vimrcFile ;
-$GVim::Win32::vimDir ;
-$GVim::Win32::vimExe ;
+my $vimrcFile;
+my $vimDir;
+my $vimExe;
 
 BEGIN {
-  my $reg = $Registry->Open ("LMachine/SOFTWARE/Vim/Gvim", {Access => KEY_READ(), Delimiter => '/'})
+  my $reg = $Registry->Open ('LMachine/SOFTWARE/Vim/Gvim', 
+    {
+      Access => KEY_READ(), 
+      Delimiter => '/'
+    }
+  )
     or croak "Can't open HKEY_LOCAL_MACHINE key: $^E\n";
 
-  $GVim::Win32::vimExe = $reg->{'/path'};
-  $GVim::Win32::vimDir = dirname(dirname($gvim_exe));
-  $GVim::Win32::vimrcFile = File::Spec->catfile($GVim32::Win32::vimDir, "_gvimrc");
+  $vimExe = $reg->{'/path'};
+  $vimDir = dirname(dirname($vimExe));
+  $vimrcFile = Win32::GetShortPathName(File::Spec->catfile($vimDir, "_gvimrc"));
 }
 
-sub gvimExe() {
-  return $GVim::Win32::vimExe;
+sub gvimExe {
+  return $vimExe;
 }
 
-sub gvimrcFile() {
-  return $GVim::Win32::vimrcFile;
+sub gvimrcFile {
+  return $vimrcFile;
 }
 
-sub gvimrcLocalFile() {
-  return catfile($GVim::Win32::vimDir, 'gvimrc-local');
+sub gvimrcLocalFile {
+  return catfile($vimDir, 'gvimrc-local');
 }
 
 sub ErrorReport {
   print Win32::FormatMessage (Win32::GetLastError());
 }
 
-sub launch() {
+sub launch {
+  my ($self, $vimargs_string) = @_;
   my $processObj;
 
-  Win32::Process::Create ($processObj, $reg->{'/path'}, $vimargs_string, 0,
+
+  Win32::Process::Create ($processObj, $self->gvimExe(), $vimargs_string, 0,
     NORMAL_PRIORITY_CLASS, ".") || croak ErrorReport();
 
   $processObj->Resume();
+}
+
+sub serverList {
+  return [];
 }
 
 1;

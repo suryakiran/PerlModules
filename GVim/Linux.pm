@@ -20,7 +20,7 @@ sub gvimrcLocalFile() {
 
 sub launch() {
   shift;
-  my $str = join(' ', @_);
+  #my $str = join(' ', @_);
   system($str);
 }
 
