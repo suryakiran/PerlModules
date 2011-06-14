@@ -57,7 +57,19 @@ sub launch {
 }
 
 sub serverList {
-  return [];
+  my @servers = ();
+  my @gvimTasks = grep(
+    /^Window Title:/, 
+    `tasklist /v /FO LIST /FI "IMAGENAME eq gvim.exe"`
+  );
+
+  foreach (@gvimTasks) {
+    if (/- *([0-9A-Za-z_-]*)$/) {
+      push @servers, $1;
+    }
+  }
+
+  return @servers;
 }
 
 1;
