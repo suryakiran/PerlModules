@@ -47,8 +47,8 @@ sub new {
     parent        => undef,
     depends       => [],
     any_version   => false,
-    cflags        => '',
-    ldflags       => '',
+    cflags        => [],
+    ldflags       => [],
     private       => false,
     tab           => 0,
   }, $class;
@@ -103,21 +103,27 @@ sub _parse_pc_file {
     }
 
     elsif ( $output =~ /^Cflags: *([^ ]*)/ ) {
-      $vars->{Cflags} = $1;
+      $self->{cflags} = $1;
     }
 
     elsif ( $output =~ /^Libs: *([^ ]*)/ ) {
-      $vars->{Libs} = $1;
+      $self->{libs} = $1;
     }
 
     elsif ( $output =~ /^Name: *([^ ]*)/ ) {
       $vars->{Name} = $1;
     }
 
-    elsif ( $output =~ m/^Requires(\.private)?:/ ) {
+    #
+    # Requires.private is needed when building against static libraries. 
+    # Against shared libraries, the Requires.private component is ignored.
+    # TODO The following logic need to be changed if static libraries are
+    # concerned.
+    #
+    elsif ( $output =~ m/^Requires:/ ) {
       my $libs = $';    # Everything after the match.
 
-      my $private = defined $1 ? true : false;
+      my $private = false;
 
       while ( $libs =~ m/$version_regex/g ) {
         if ( not exists $module_list->{$1} ) {
@@ -135,6 +141,8 @@ sub _parse_pc_file {
 
       $libs =~ s/$version_regex//g;
       $libs =~ tr/ / /s;
+      $libs =~ s/ ,/,/g;
+      $libs =~ tr/,/,/s;
       my @modules = split( /[, ]/, $libs );
       foreach (@modules) {
         if ($_) {
