@@ -6,11 +6,11 @@ use warnings;
 use File::Spec::Functions;
 use File::Which qw(which where);
 
-sub gvimExe() {
+sub gvimExe {
   return which("gvim");
 }
 
-sub gvimrcFile() {
+sub gvimrcFile {
   catfile($ENV{'HOME'}, '.gvimrc');
 }
 
@@ -18,16 +18,16 @@ sub gvimrcLocalFile() {
   catfile($ENV{'HOME'}, '.gvimrc-local');
 }
 
-sub launch() {
+sub launch {
   shift;
   my $str = join(' ', @_);
   system($str);
 }
 
-sub serverList() {
+sub serverList {
   my $exe = gvimExe();
   my $list = `$exe --serverlist`;
-  return split(' ', $list);
+  return split('\n', $list);
 }
 
 1;
