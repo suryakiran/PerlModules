@@ -10,6 +10,7 @@ use Win32::Registry;
 use Win32::TieRegistry;
 use Win32::Process;
 use Win32;
+use Env qw/@PATH/;
 
 my $vimrcFile;
 my $vimDir;
@@ -27,6 +28,8 @@ BEGIN {
   $vimExe = $reg->{'/path'};
   $vimDir = dirname(dirname($vimExe));
   $vimrcFile = Win32::GetShortPathName(File::Spec->catfile($vimDir, "_gvimrc"));
+  push @PATH, canonpath('C:/Windows/SysWOW64'); # For python27.dll (32 bit on win64 platform)
+  unshift @PATH, catfile($vimDir, 'Perl', 'bin'); # For perl512.dll (32bit)
 }
 
 sub gvimExe {
