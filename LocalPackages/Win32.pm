@@ -29,7 +29,9 @@ BEGIN {
     expat     => 'Expat 2.0.1',
     png       => 'libpng-1.5.9',
     osg       => 'OpenSceneGraph-3.0.1',
-    doxygen   => 'doxygen'
+    doxygen   => 'doxygen',
+    graphviz  => 'Graphviz 2.28',
+    glut      => 'Glut'
   };
 
 }
