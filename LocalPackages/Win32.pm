@@ -31,7 +31,7 @@ BEGIN {
     osg       => 'OpenSceneGraph-3.0.1',
     doxygen   => 'doxygen',
     graphviz  => 'Graphviz 2.28',
-    glut      => 'Glut'
+    glut      => 'Glut',
   };
 
 }
@@ -60,4 +60,6 @@ sub setEnv {
   unshift @PATH, catfile($boostDir, 'lib');
   unshift @LIB, catfile($boostDir, 'lib');
   unshift @LIBPATH, catfile($boostDir, 'lib');
+
+  unshift @PATH, catfile ($packagesDir, 'perl', '5.14.2', 'bin', 'MSWin32-x86-multi-thread');
 }
