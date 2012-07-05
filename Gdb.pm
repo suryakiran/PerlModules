@@ -28,12 +28,12 @@ sub new {
 }
 
 sub launch {
-  my ($self, %exe_args) = @_;
+  my ($self, %exe_args, @otherArgs) = @_;
 
   if ($self->{debugger}) {
-    $self->_debug_app(%exe_args) ;
+    $self->_debug_app(%exe_args, @otherArgs) ;
   } else {
-    $self->_run_app(%exe_args) ;
+    $self->_run_app(%exe_args, @otherArgs) ;
   }
 }
 
