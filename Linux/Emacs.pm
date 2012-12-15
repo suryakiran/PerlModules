@@ -20,4 +20,11 @@ sub launch {
   system($str);
 }
 
+sub runningServers {
+    my @servers;
+    my $serversDir = catfile($ENV{HOME}, '.emacs.d', 'server');
+    @servers = <$serversDir/*>;
+    return @servers;
+}
+
 1;
