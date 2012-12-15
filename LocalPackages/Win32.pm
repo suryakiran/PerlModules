@@ -14,7 +14,7 @@ my $pocoVersion;
 BEGIN {
   $packagesDir = "$ENV{PACKAGES_DIR}";
   $boostVersion = '1.49.0';
-  $pocoVersion   = '1.4.3';
+  $pocoVersion   = '1.5.0';
   my $qtVersion = '4.8.0';
   my $xercesVersion = '3.1.1';
 
@@ -32,6 +32,10 @@ BEGIN {
     doxygen   => 'doxygen',
     graphviz  => 'Graphviz 2.28',
     glut      => 'Glut',
+    openjpeg  => 'OpenJPEG',
+    openssl   => 'OpenSSL-1.0.1c',
+    cairo     => 'cairo-1.10.2',
+    freetype  => 'freetype-2.4.10',
   };
 
 }
@@ -61,5 +65,5 @@ sub setEnv {
   unshift @LIB, catfile($boostDir, 'lib');
   unshift @LIBPATH, catfile($boostDir, 'lib');
 
-  unshift @PATH, catfile ($packagesDir, 'perl', '5.14.2', 'bin', 'MSWin32-x86-multi-thread');
+  #unshift @PATH, catfile ($packagesDir, 'perl', '5.14.2', 'bin', 'MSWin32-x86-multi-thread');
 }
