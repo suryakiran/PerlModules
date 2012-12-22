@@ -55,4 +55,9 @@ sub launch {
   $processObj->Resume();
 }
 
+sub runningServers {
+  my @servers;
+  return @servers;
+}
+
 1;
